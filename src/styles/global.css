@@ -16,6 +16,12 @@
   src: url('/fonts/Pretendard-Bold.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'EF_jejudoldam';
+  font-weight: 400;
+  src: url('/fonts/EF_jejudoldam.woff') format('woff');
+}
+
 :root {
   --primary-color: #99c08e;
   --primary-bg-green: #f6f4ef;
@@ -52,6 +58,7 @@ button,
 input,
 textarea {
   font: inherit;
+  border: none;
 }
 
 * {
