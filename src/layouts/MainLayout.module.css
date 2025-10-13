@@ -1,0 +1,32 @@
+.header {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 11.375rem;
+  height: 3.75rem;
+  margin: 1.25rem 0 1.25rem 13.75rem;
+}
+
+.makeStudyBtn {
+  width: 252px;
+  height: 58px;
+  padding: 10px;
+  margin: 1.3125rem 13.75rem 1.3125rem 0;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  font-family: EF_jejudoldam;
+  font-size: 1.125rem;
+}
+
+.hidden {
+  display: none;
+}

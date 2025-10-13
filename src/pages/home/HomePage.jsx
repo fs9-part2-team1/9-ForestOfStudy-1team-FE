@@ -1,3 +1,9 @@
+import MainLayout from '@/layouts/MainLayout';
+
 export default function HomePage() {
-  return <h1>HomePage</h1>;
+  return (
+    <MainLayout>
+      <h1>내용 시작</h1>
+    </MainLayout>
+  );
 }
