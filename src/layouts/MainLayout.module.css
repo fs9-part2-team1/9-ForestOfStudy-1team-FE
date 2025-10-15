@@ -1,9 +1,11 @@
 .header {
   width: 100%;
+  max-width: 1920px;
   height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
 }
 
 .logo {
@@ -13,7 +15,7 @@
 }
 
 .makeStudyBtn {
-  width: 252px;
+  min-width: 232px;
   height: 58px;
   padding: 10px;
   margin: 1.3125rem 13.75rem 1.3125rem 0;
@@ -29,4 +31,38 @@
 
 .hidden {
   display: none;
+}
+
+@media (min-width: 1024px) {
+  .logo {
+  }
+  .makeStudyBtn {
+    min-width: 252px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .logo {
+    margin: 1.25rem 0 1.25rem 1.5rem;
+  }
+  .makeStudyBtn {
+    margin: 1.3125rem 1.5rem 1.3125rem 0;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 767px) {
+  .logo {
+    margin: 2rem 0 2rem 1rem;
+    width: 106px;
+    height: 35.021px;
+  }
+  .makeStudyBtn {
+    min-width: 106px;
+    height: 38px;
+    margin: 2rem 1rem 2rem 0;
+    color: #fff;
+    font-size: 11.925px;
+    font-weight: 400;
+  }
 }
