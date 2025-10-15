@@ -1,0 +1,168 @@
+/**
+ *
+ *  Mission TeamProject
+ *
+ *  2025. 10. 13
+ *
+ *  make-study page
+ *
+ *  MakeStudyPage.jsx
+ *
+ *  author: ys
+ *
+ */
+
+.appContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  width: 696px;
+  border-radius: 20px;
+  margin: 40px auto;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 800;
+  height: 24px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.inputText {
+  display: flex;
+  flex-direction: column;
+
+  & label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  & input {
+    border: solid 1px var(--border-line);
+    border-radius: 15px;
+    height: 48px;
+    width: 100%;
+    padding: 15px 20px;
+  }
+}
+
+.inputErrMessage {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--error-red);
+  margin-top: 8px;
+}
+
+.textArea {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  & label {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  & textArea {
+    border: solid 1px var(--border-line);
+    border-radius: 15px;
+    height: 98px;
+    width: 100%;
+    padding: 15px 20px;
+    color: var(--font-gray);
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.inputPasswordContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.inputPassword {
+  display: flex;
+  flex-direction: column;
+
+  & label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+}
+
+.passwordWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+
+  & input {
+    border: solid 1px var(--border-line);
+    height: 48px;
+    border-radius: 15px;
+    width: 100%;
+    padding: 15px 20px;
+  }
+
+  & .passwordToggleButton {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 24px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #dbdbdb2f;
+    }
+  }
+}
+
+.backgroundListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.backgroundList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 23px;
+}
+
+.backgroundItem {
+  aspect-ratio: 1/1;
+  border-radius: 16px;
+  border: 1px solid var(--border-line);
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid var(--font-gray);
+  }
+}
+
+.makeButton {
+  background-color: var(--primary-color);
+  padding: 10px;
+  color: white;
+  border-radius: 16px;
+  border: none;
+  font-family: EF_jejudoldam;
+  font-size: 18px;
+  height: 58px;
+}
+
+.hidden {
+  display: none;
+}
