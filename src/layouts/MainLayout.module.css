@@ -1,68 +1,144 @@
-.header {
+@font-face {
+  font-family: "EF_JejuDoldam";
+  src: url("/fonts/EF_jejudoldam.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 1920px;
-  height: 100px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin: 0 auto;
 }
 
-.logo {
-  width: 11.375rem;
-  height: 3.75rem;
-  margin: 1.25rem 0 1.25rem 13.75rem;
-}
-
-.makeStudyBtn {
-  min-width: 232px;
-  height: 58px;
-  padding: 10px;
-  margin: 1.3125rem 13.75rem 1.3125rem 0;
-  gap: 10px;
-  flex-shrink: 0;
+.modal {
+  background: #fff;
   border-radius: 16px;
-  background: var(--primary-color);
-  color: #fff;
+  padding: 24px;
+  width: 420px; /* ✅ Desktop & iPad mini 고정 크기 */
   text-align: center;
-  font-family: EF_jejudoldam;
-  font-size: 1.125rem;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+  font-family: "Pretendard", sans-serif;
 }
 
-.hidden {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .logo {
-  }
-  .makeStudyBtn {
-    min-width: 252px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .logo {
-    margin: 1.25rem 0 1.25rem 1.5rem;
-  }
-  .makeStudyBtn {
-    margin: 1.3125rem 1.5rem 1.3125rem 0;
-    min-width: 160px;
-  }
-}
-
+/* ✅ Mobile (최대 767px)만 반응형 적용 */
 @media (max-width: 767px) {
-  .logo {
-    margin: 2rem 0 2rem 1rem;
-    width: 106px;
-    height: 35.021px;
+  .modal {
+    width: 85%;
+    padding: 20px;
   }
-  .makeStudyBtn {
-    min-width: 106px;
-    height: 38px;
-    margin: 2rem 1rem 2rem 0;
-    color: #fff;
-    font-size: 11.925px;
-    font-weight: 400;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.message {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: center;
+}
+
+.closeBtn {
+  background: #99C08E;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;@font-face {
+  font-family: "EF_JejuDoldam";
+  src: url("/fonts/EF_jejudoldam.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  width: 420px; /* ✅ Desktop & iPad mini 고정 크기 */
+  text-align: center;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+  font-family: "Pretendard", sans-serif;
+}
+
+/* ✅ Mobile (최대 767px)만 반응형 적용 */
+@media (max-width: 767px) {
+  .modal {
+    width: 85%;
+    padding: 20px;
   }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.message {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: center;
+}
+
+.closeBtn {
+  background: #99C08E;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: "EF_JejuDoldam", sans-serif;
+}
+
+  cursor: pointer;
+  font-family: "EF_JejuDoldam", sans-serif;
 }
