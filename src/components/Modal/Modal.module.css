@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "EF_JejuDoldam";
+  src: url("/fonts/EF_jejudoldam.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 24px;
+  width: 648px;
+  display: flex;           
+  flex-direction: column;    
+  gap: 10px;                 
+  text-align: center;
+  font-family: "Pretendard", sans-serif;
+}
+
+
+/*  Mobile (최대 767px)만 반응형 적용 */
+@media (max-width: 767px) {
+  .modal {
+    width: 344px;
+    padding: 20px;
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+ 
+  color: #333;
+}
+
+.message {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: center;
+}
+
+.closeBtn {
+  background: #99C08E;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: "EF_JejuDoldam", sans-serif;
+}
