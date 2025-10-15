@@ -47,7 +47,9 @@ export default function MakeStudyPage() {
               name="nickname"
               placeholder="닉네임을 입력해 주세요"
             />
-            <span className={style.inputErrMessage}>* 테스트</span>
+            <span className={style.inputErrMessage}>
+              * 닉네임을 입력해 주세요
+            </span>
           </div>
           <div className={style.inputText}>
             <label htmlFor="studyname">스터디 이름</label>
@@ -56,7 +58,9 @@ export default function MakeStudyPage() {
               name="studyname"
               placeholder="스터디 이름을 입력해 주세요"
             />
-            <span className={style.inputErrMessage}>* 테스트</span>
+            <span className={style.inputErrMessage}>
+              * 스터디 이름을 입력해 주세요
+            </span>
           </div>
           <div className={style.textArea}>
             <label htmlFor="introduce">소개</label>
@@ -93,7 +97,9 @@ export default function MakeStudyPage() {
                 onClick={(event) => passwordVisibleToggle(event)}
               />
             </div>
-            <span className={style.inputErrMessage}>* 테스트</span>
+            <span className={style.inputErrMessage}>
+              * 비밀번호를 입력해 주세요
+            </span>
           </div>
           <div className={style.inputPassword}>
             <label htmlFor="passwordConfirm">비밀번호 확인</label>
@@ -108,7 +114,9 @@ export default function MakeStudyPage() {
                 src={visibilityOnIcon}
               />
             </div>
-            <span className={style.inputErrMessage}>* 테스트</span>
+            <span className={style.inputErrMessage}>
+              * 비밀번호가 일치하지 않습니다
+            </span>
           </div>
         </div>
         <button className={style.makeButton}>만들기</button>
