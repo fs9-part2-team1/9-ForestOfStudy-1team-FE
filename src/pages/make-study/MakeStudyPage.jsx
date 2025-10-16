@@ -16,24 +16,50 @@ import MainLayout from '@/Layouts/MainLayout';
 import style from './MakeStudyPage.module.css';
 import visibilityOffIcon from '@/assets/icons/password/btn_visibility_off.png';
 import visibilityOnIcon from '@/assets/icons/password/btn_visibility_on.png';
+import alvaroThumbnail from '@/assets/images/thumbnail/alvaro-reyes-unsplash.png';
+import andrewThumbnail from '@/assets/images/thumbnail/andrew-ridley-unsplash.png';
+import chrisThumbnail from '@/assets/images/thumbnail/chris-lee-unsplash.png';
+import mikeyThumbnail from '@/assets/images/thumbnail/mikey-harris-unsplash.png';
 
 export default function MakeStudyPage() {
   const backgroundList = [
-    'var(--card--green)',
-    'var(--card--yellow)',
-    'var(--card--blue)',
-    'var(--card--pink)',
-    'var(--card--green)',
-    'var(--card--yellow)',
-    'var(--card--blue)',
-    'var(--card--pink)',
+    { type: 'bg', value: 'var(--card--green)' },
+    { type: 'bg', value: 'var(--card--yellow)' },
+    { type: 'bg', value: 'var(--card--blue)' },
+    { type: 'bg', value: 'var(--card--pink)' },
+    { type: 'img', value: mikeyThumbnail },
+    { type: 'img', value: chrisThumbnail },
+    { type: 'img', value: andrewThumbnail },
+    { type: 'img', value: alvaroThumbnail },
   ];
 
-  const passwordVisibleToggle = (event) => {};
+  const passwordVisibleToggle = (event) => {
+    const inputPassword = event.currentTarget.previousElementSibling;
 
-  const validatePassword = () => {};
+    if (event.currentTarget.classList.contains('invisibled')) {
+      inputPassword.type = 'text';
+      event.currentTarget.classList.remove('invisibled');
+      event.currentTarget.src = visibilityOnIcon;
+    } else {
+      inputPassword.type = 'password';
+      event.currentTarget.classList.add('invisibled');
+      event.currentTarget.src = visibilityOffIcon;
+    }
+  };
 
+  const validateNickname = (value) => {};
+
+  /* 비밀번호 입력란 유효성 검사 함수 */
+  const validatePassword = (newPasswordConfirm) => {
+    console.log('[validatePassword]newPasswordConfirm: ', newPasswordConfirm);
+    return newPasswordConfirm.length > 8;
+  };
+
+  /* 비밀번호 확인 입력란 유효성 검사 함수 */
   const validatePasswordConfirm = () => {};
+
+  /* api 서버로 requset 요청 - post */
+  const handleRequsetPost = () => {};
 
   return (
     <MainLayout>
@@ -77,7 +103,11 @@ export default function MakeStudyPage() {
               <li
                 className={style.backgroundItem}
                 key={index}
-                style={{ backgroundColor: bg }}
+                style={
+                  bg.type === 'bg'
+                    ? { backgroundColor: bg.value }
+                    : { backgroundImage: `url(${bg.value})` }
+                }
               ></li>
             ))}
           </ul>
