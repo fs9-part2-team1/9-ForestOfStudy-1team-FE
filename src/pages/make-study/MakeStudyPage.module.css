@@ -163,6 +163,6 @@
   height: 58px;
 }
 
-.hidden {
+.nonDisplay {
   display: none;
 }
