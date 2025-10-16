@@ -21,18 +21,26 @@ import andrewThumbnail from '@/assets/images/thumbnail/andrew-ridley-unsplash.pn
 import chrisThumbnail from '@/assets/images/thumbnail/chris-lee-unsplash.png';
 import mikeyThumbnail from '@/assets/images/thumbnail/mikey-harris-unsplash.png';
 
-export default function MakeStudyPage() {
-  const backgroundList = [
-    { type: 'bg', value: 'var(--card--green)' },
-    { type: 'bg', value: 'var(--card--yellow)' },
-    { type: 'bg', value: 'var(--card--blue)' },
-    { type: 'bg', value: 'var(--card--pink)' },
-    { type: 'img', value: mikeyThumbnail },
-    { type: 'img', value: chrisThumbnail },
-    { type: 'img', value: andrewThumbnail },
-    { type: 'img', value: alvaroThumbnail },
-  ];
+/* 배경 이미지 썸네일 리스트 */
+const backgroundList = [
+  { type: 'bg', value: 'var(--card--green)' },
+  { type: 'bg', value: 'var(--card--yellow)' },
+  { type: 'bg', value: 'var(--card--blue)' },
+  { type: 'bg', value: 'var(--card--pink)' },
+  { type: 'img', value: mikeyThumbnail },
+  { type: 'img', value: chrisThumbnail },
+  { type: 'img', value: andrewThumbnail },
+  { type: 'img', value: alvaroThumbnail },
+];
 
+export default function MakeStudyPage() {
+  let title;
+  let nickname;
+  let password;
+  let description;
+  let background;
+
+  /* 비밀 번호 입력란 보여주기 기능 토글 */
   const passwordVisibleToggle = (event) => {
     const inputPassword = event.currentTarget.previousElementSibling;
 
@@ -47,16 +55,42 @@ export default function MakeStudyPage() {
     }
   };
 
-  const validateNickname = (value) => {};
-
-  /* 비밀번호 입력란 유효성 검사 함수 */
-  const validatePassword = (newPasswordConfirm) => {
-    console.log('[validatePassword]newPasswordConfirm: ', newPasswordConfirm);
-    return newPasswordConfirm.length > 8;
+  /* 스터디 제목 입련란 유효성 검사 */
+  const validateTitle = (event) => {
+    title = event.currentTarget.value;
+    const err = event.currentTarget.nextElementSibling;
+    console.log('[validateTitle] title: ', title);
   };
 
-  /* 비밀번호 확인 입력란 유효성 검사 함수 */
-  const validatePasswordConfirm = () => {};
+  /* 닉네임 입력란 유효성 검사 */
+  const validateNickname = (event) => {
+    nickname = event.currentTarget.value;
+    console.log('[validateNickname] nicname: ', nickname);
+  };
+
+  /* 비밀번호 입력란 유효성 검사 */
+  const validatePassword = (event) => {
+    password = event.currentTarget.value;
+    console.log('[validatePassword] password: ', password);
+  };
+
+  /* 비밀번호 확인 입력란 유효성 검사 */
+  const validatePasswordConfirm = (event) => {
+    passwordConfirm = event.currentTarget.value;
+    console.log('[validatePasswordConfirm] passwordConfirm: ', passwordConfirm);
+  };
+
+  /* 스터디 소개란 이벤트 */
+  const onInputDescription = (event) => {
+    description = event.currentTarget.value;
+    console.log('[validateDescription] description: ', description);
+  };
+
+  /* 배경 화면 이벤트 */
+  const onClickBackground = (event, bg) => {
+    background = bg;
+    console.log('[validateBackground] background: ', background);
+  };
 
   /* api 서버로 requset 요청 - post */
   const handleRequsetPost = () => {};
@@ -71,6 +105,7 @@ export default function MakeStudyPage() {
             <input
               type="text"
               name="nickname"
+              onInput={validateNickname}
               placeholder="닉네임을 입력해 주세요"
             />
             <span className={style.inputErrMessage}>
@@ -82,6 +117,7 @@ export default function MakeStudyPage() {
             <input
               type="text"
               name="studyname"
+              onInput={validateTitle}
               placeholder="스터디 이름을 입력해 주세요"
             />
             <span className={style.inputErrMessage}>
@@ -93,7 +129,8 @@ export default function MakeStudyPage() {
             <textarea
               name="introduce"
               placeholder="소개 멘트를 작성해 주세요"
-            ></textarea>
+              onInput={onInputDescription}
+            />
           </div>
         </div>
         <div className={style.backgroundListContainer}>
@@ -103,6 +140,7 @@ export default function MakeStudyPage() {
               <li
                 className={style.backgroundItem}
                 key={index}
+                onClick={(event) => onClickBackground(event, bg)}
                 style={
                   bg.type === 'bg'
                     ? { backgroundColor: bg.value }
@@ -119,6 +157,7 @@ export default function MakeStudyPage() {
               <input
                 type="password"
                 name="password"
+                onInput={validatePassword}
                 placeholder="비밀번호를 입력해 주세요"
               ></input>
               <img
@@ -137,6 +176,7 @@ export default function MakeStudyPage() {
               <input
                 type="password"
                 name="passwordConfirm"
+                onInput={validatePasswordConfirm}
                 placeholder="비밀번호를 다시 한 번 입력해 주세요"
               />
               <img
