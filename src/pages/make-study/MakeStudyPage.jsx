@@ -14,6 +14,7 @@
 
 import MainLayout from '@/Layouts/MainLayout';
 import styles from './MakeStudyPage.module.css';
+import bgSelectIcon from '@/assets/icons/common/ic_bg_selected.png';
 import visibilityOffIcon from '@/assets/icons/password/btn_visibility_off.png';
 import visibilityOnIcon from '@/assets/icons/password/btn_visibility_on.png';
 import alvaroThumbnail from '@/assets/images/thumbnail/alvaro-reyes-unsplash.png';
@@ -35,6 +36,11 @@ const backgroundList = [
   { id: uuid(), type: 'img', value: alvaroThumbnail },
 ];
 
+/* 배경 이미지 선택 아이콘 컴포넌트 */
+function selectIcon() {
+  return <img src={bgSelectIcon} className={styles.bgSelectIcon} />;
+}
+
 export default function MakeStudyPage() {
   let id;
   let title;
@@ -43,6 +49,7 @@ export default function MakeStudyPage() {
   let passwordConfirm;
   let description;
   let background;
+  let prevBackgroundElement;
 
   /* 비밀 번호 입력란 보여주기 기능 토글 */
   const passwordVisibleToggle = (event) => {
@@ -68,8 +75,7 @@ export default function MakeStudyPage() {
     err.className = isValidate
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
       : `${styles.inputErrMessage}`;
-    console.log('[validateTitle] title: ', title);
-    console.log('[validateTitle] err: ', err.className);
+
     return isValidate;
   };
 
@@ -84,7 +90,6 @@ export default function MakeStudyPage() {
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
       : `${styles.inputErrMessage}`;
 
-    console.log('[validateNickname] nicname: ', nickname);
     return isValidate;
   };
 
@@ -108,9 +113,6 @@ export default function MakeStudyPage() {
         ? `${styles.inputErrMessage} ${styles.nonDisplay}`
         : `${styles.inputErrMessage}`;
 
-    console.log('[validatePassword] password: ', password);
-    console.log('[validatePasswordConfirm] err: ', err);
-
     return isValidate;
   };
 
@@ -131,9 +133,6 @@ export default function MakeStudyPage() {
         ? `${styles.inputErrMessage} ${styles.nonDisplay}`
         : `${styles.inputErrMessage}`;
 
-    console.log('[validatePasswordConfirm] passwordConfirm: ', passwordConfirm);
-    console.log('[validatePasswordConfirm] err: ', err);
-
     return isValidate;
   };
 
@@ -143,19 +142,18 @@ export default function MakeStudyPage() {
     console.log('[validateDescription] description: ', description);
   };
 
-  /* 배경 화면 이벤트 */
-  const onClickBackground = (event, bg) => {
-    id = bg.id;
-    background = bg;
-    console.log('[validateBackground] background: ', background);
-    console.log(
-      '[validateBackground] event.currentTarget: ',
-      event.currentTarget,
-    );
-    console.log(
-      '[validateBackground] event.currentTarget.key: ',
-      event.currentTarget.key,
-    );
+  /* 배경 화면 리스트 선택 이벤트 */
+  const onClickBackground = (event, background) => {
+    id = background.id;
+
+    if (!prevBackgroundElement) {
+      prevBackgroundElement =
+        event.currentTarget.parentElement.firstElementChild.firstElementChild;
+    }
+
+    prevBackgroundElement.src = '';
+    event.currentTarget.firstElementChild.src = bgSelectIcon;
+    prevBackgroundElement = event.currentTarget.firstElementChild;
   };
 
   /* api 서버로 requset 요청 - post */
@@ -235,7 +233,12 @@ export default function MakeStudyPage() {
                     ? { backgroundColor: bg.value }
                     : { backgroundImage: `url(${bg.value})` }
                 }
-              ></li>
+              >
+                <img
+                  className={styles.bgSelectIcon}
+                  src={index === 0 ? bgSelectIcon : null}
+                />
+              </li>
             ))}
           </ul>
         </div>

@@ -142,6 +142,9 @@
 }
 
 .backgroundItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   aspect-ratio: 1/1;
   border-radius: 16px;
   border: 1px solid var(--border-line);
@@ -150,6 +153,10 @@
   &:hover {
     border: 1px solid var(--font-gray);
   }
+}
+
+.bgSelectIcon {
+  width: 32px;
 }
 
 .makeButton {
