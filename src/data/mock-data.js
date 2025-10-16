@@ -4,6 +4,7 @@ export const mockData = {
   title: '개발공장',
   description: 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)',
   background: 1,
+  password: 'abc123',
   points: 310,
   createdAt: '2025-10-10T09:00:00.000Z',
   updatedAt: '2025-10-15T09:00:00.000Z',
