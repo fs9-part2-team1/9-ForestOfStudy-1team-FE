@@ -20,21 +20,23 @@ import alvaroThumbnail from '@/assets/images/thumbnail/alvaro-reyes-unsplash.png
 import andrewThumbnail from '@/assets/images/thumbnail/andrew-ridley-unsplash.png';
 import chrisThumbnail from '@/assets/images/thumbnail/chris-lee-unsplash.png';
 import mikeyThumbnail from '@/assets/images/thumbnail/mikey-harris-unsplash.png';
-import clsx from 'clsx';
+import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
 /* 배경 이미지 썸네일 리스트 */
 const backgroundList = [
-  { type: 'bg', value: 'var(--card--green)' },
-  { type: 'bg', value: 'var(--card--yellow)' },
-  { type: 'bg', value: 'var(--card--blue)' },
-  { type: 'bg', value: 'var(--card--pink)' },
-  { type: 'img', value: mikeyThumbnail },
-  { type: 'img', value: chrisThumbnail },
-  { type: 'img', value: andrewThumbnail },
-  { type: 'img', value: alvaroThumbnail },
+  { id: uuid(), type: 'bg', value: 'var(--card--green)' },
+  { id: uuid(), type: 'bg', value: 'var(--card--yellow)' },
+  { id: uuid(), type: 'bg', value: 'var(--card--blue)' },
+  { id: uuid(), type: 'bg', value: 'var(--card--pink)' },
+  { id: uuid(), type: 'img', value: mikeyThumbnail },
+  { id: uuid(), type: 'img', value: chrisThumbnail },
+  { id: uuid(), type: 'img', value: andrewThumbnail },
+  { id: uuid(), type: 'img', value: alvaroThumbnail },
 ];
 
 export default function MakeStudyPage() {
+  let id;
   let title;
   let nickname;
   let password;
@@ -143,12 +145,42 @@ export default function MakeStudyPage() {
 
   /* 배경 화면 이벤트 */
   const onClickBackground = (event, bg) => {
+    id = bg.id;
     background = bg;
     console.log('[validateBackground] background: ', background);
+    console.log(
+      '[validateBackground] event.currentTarget: ',
+      event.currentTarget,
+    );
+    console.log(
+      '[validateBackground] event.currentTarget.key: ',
+      event.currentTarget.key,
+    );
   };
 
   /* api 서버로 requset 요청 - post */
-  const handleRequsetPost = () => {};
+  const handleRequsetPost = (event) => {
+    const url = '';
+    const study = {
+      id,
+      nickname,
+      title,
+      description,
+      background,
+      password,
+    };
+
+    console.log('[handleRequestPost] study: ', study);
+
+    axios
+      .post(url, study)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(`[${error.code} - ${error.status}] ${error.message} `);
+      });
+  };
 
   return (
     <MainLayout>
@@ -196,7 +228,7 @@ export default function MakeStudyPage() {
             {backgroundList.map((bg, index) => (
               <li
                 className={styles.backgroundItem}
-                key={index}
+                key={bg.id}
                 onClick={(event) => onClickBackground(event, bg)}
                 style={
                   bg.type === 'bg'
@@ -240,7 +272,8 @@ export default function MakeStudyPage() {
               />
               <img
                 className={styles.passwordToggleButton}
-                src={visibilityOnIcon}
+                src={visibilityOffIcon}
+                onClick={(event) => passwordVisibleToggle(event)}
               />
             </div>
             <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
@@ -248,7 +281,9 @@ export default function MakeStudyPage() {
             </span>
           </div>
         </div>
-        <button className={styles.makeButton}>만들기</button>
+        <button className={styles.makeButton} onClick={handleRequsetPost}>
+          만들기
+        </button>
       </div>
     </MainLayout>
   );
