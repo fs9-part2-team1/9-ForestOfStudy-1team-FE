@@ -42,13 +42,13 @@ function selectIcon() {
 }
 
 export default function MakeStudyPage() {
-  let id;
-  let title;
-  let nickname;
-  let password;
-  let passwordConfirm;
-  let description;
-  let background;
+  let id = '';
+  let title = '';
+  let nickname = '';
+  let password = '';
+  let passwordConfirm = '';
+  let description = '';
+  let background = {};
   let prevBackgroundElement;
 
   /* 비밀 번호 입력란 보여주기 기능 토글 */
@@ -67,37 +67,58 @@ export default function MakeStudyPage() {
   };
 
   /* 스터디 제목 입련란 유효성 검사 */
-  const validateTitle = (event) => {
-    const err = event.currentTarget.nextElementSibling;
-    title = event.currentTarget.value;
-    const isValidate = title ? true : false;
-
-    err.className = isValidate
-      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
-      : `${styles.inputErrMessage}`;
-
-    return isValidate;
+  const checkValidateTitle = () => {
+    return title ? true : false;
   };
 
   /* 닉네임 입력란 유효성 검사 */
-  const validateNickname = (event) => {
-    const err = event.currentTarget.nextElementSibling;
+  const checkValidateNickname = (evet) => {
+    return nickname ? true : false;
+  };
 
+  /* 비밀번호 입력란 유효성 검사 */
+  const checkValidatePassword = () => {
+    return password.length > 8;
+  };
+
+  /* 비밀번호 확인 입력란 유효성 검사 */
+  const checkValidatePasswordConfirm = () => {
+    return passwordConfirm.length !== 0 && password === passwordConfirm;
+  };
+
+  /* 닉네임 입력란 이벤트 핸들 */
+  const onInputNickname = (event) => {
+    const err = event.currentTarget.nextElementSibling;
     nickname = event.currentTarget.value;
-    const isValidate = nickname ? true : false;
+
+    const isValidate = checkValidateNickname();
 
     err.className = isValidate
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
       : `${styles.inputErrMessage}`;
-
-    return isValidate;
   };
 
-  /* 비밀번호 입력란 유효성 검사 */
-  const validatePassword = (event) => {
+  /* 스터디 제목 입력란 이벤트 핸들 */
+  const onInputTitle = (event) => {
+    const err = event.currentTarget.nextElementSibling;
+    title = event.currentTarget.value;
+
+    const isValidate = checkValidateTitle();
+
+    err.className = isValidate
+      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
+      : `${styles.inputErrMessage}`;
+  };
+
+  /* 비밀번호 입력란 이벤트 핸들 */
+  const onInputPassword = (event) => {
     const err = event.currentTarget.parentElement.nextElementSibling;
     password = event.currentTarget.value;
-    const isValidate = password.length > 8;
+
+    const isValidate = checkValidatePassword();
+
+    // 비밀번호 확인 입력란 강제 이벤트 발생 후 유효성 체크하는 기능 추 후에 구현 예정
+    // const isValidatePasswordConfirm = checkValidatePasswordConfirm();
 
     err.className = isValidate
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
@@ -107,39 +128,27 @@ export default function MakeStudyPage() {
       password.length === 0
         ? '비밀번호를 입력해 주세요'
         : '비밀번호를 8자 이상 입력해주세요';
-
-    err.className =
-      password === passwordConfirm
-        ? `${styles.inputErrMessage} ${styles.nonDisplay}`
-        : `${styles.inputErrMessage}`;
-
-    return isValidate;
   };
 
-  /* 비밀번호 확인 입력란 유효성 검사 */
-  const validatePasswordConfirm = (event) => {
+  /* 비밀번호 확인 입력란 이벤트 핸들 */
+  const onInputPasswordConfirm = (event) => {
     const err = event.currentTarget.parentElement.nextElementSibling;
     passwordConfirm = event.currentTarget.value;
 
-    const isValidate =
-      passwordConfirm.length !== 0 && password === passwordConfirm;
+    const isValidate = checkValidatePasswordConfirm();
 
     err.innerText = passwordConfirm
       ? '비밀번호가 일치하지 않습니다'
       : '비밀번호 확인을 입력해 주세요';
 
-    err.className =
-      password === passwordConfirm
-        ? `${styles.inputErrMessage} ${styles.nonDisplay}`
-        : `${styles.inputErrMessage}`;
-
-    return isValidate;
+    err.className = isValidate
+      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
+      : `${styles.inputErrMessage}`;
   };
 
-  /* 스터디 소개란 이벤트 */
+  /* 스터디 소개란 이벤트 핸들 */
   const onInputDescription = (event) => {
     description = event.currentTarget.value;
-    console.log('[validateDescription] description: ', description);
   };
 
   /* 배경 화면 리스트 선택 이벤트 */
@@ -156,8 +165,25 @@ export default function MakeStudyPage() {
     prevBackgroundElement = event.currentTarget.firstElementChild;
   };
 
+  /* 모든 입력창 유효성 검사 함수 */
+  const checkTotalValidate = () => {
+    const isValidateTitle = checkValidateTitle();
+    const isValidateNickname = checkValidateNickname();
+    const isValidatePassword = checkValidatePassword();
+    const isValidatePasswordConfirm = checkValidatePasswordConfirm();
+
+    if (
+      isValidateTitle &&
+      isValidateNickname &&
+      isValidatePassword &&
+      isValidatePasswordConfirm
+    ) {
+      handleRequsetPost();
+    }
+  };
+
   /* api 서버로 requset 요청 - post */
-  const handleRequsetPost = (event) => {
+  const handleRequsetPost = () => {
     const url = '/study';
     const study = {
       id,
@@ -190,8 +216,8 @@ export default function MakeStudyPage() {
             <input
               type="text"
               name="nickname"
-              onInput={validateNickname}
-              onBlur={validateTitle}
+              onInput={onInputNickname}
+              onBlur={onInputNickname}
               placeholder="닉네임을 입력해 주세요"
             />
             <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
@@ -203,8 +229,8 @@ export default function MakeStudyPage() {
             <input
               type="text"
               name="studyname"
-              onInput={validateTitle}
-              onBlur={validateTitle}
+              onInput={onInputTitle}
+              onBlur={onInputTitle}
               placeholder="스터디 이름을 입력해 주세요"
             />
             <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
@@ -249,8 +275,8 @@ export default function MakeStudyPage() {
               <input
                 type="password"
                 name="password"
-                onInput={validatePassword}
-                onBlur={validatePassword}
+                onInput={onInputPassword}
+                onBlur={onInputPassword}
                 placeholder="비밀번호를 입력해 주세요"
               ></input>
               <img
@@ -269,8 +295,8 @@ export default function MakeStudyPage() {
               <input
                 type="password"
                 name="passwordConfirm"
-                onInput={validatePasswordConfirm}
-                onBlur={validatePasswordConfirm}
+                onInput={onInputPasswordConfirm}
+                onBlur={onInputPasswordConfirm}
                 placeholder="비밀번호를 다시 한 번 입력해 주세요"
               />
               <img
@@ -284,7 +310,7 @@ export default function MakeStudyPage() {
             </span>
           </div>
         </div>
-        <button className={styles.makeButton} onClick={handleRequsetPost}>
+        <button className={styles.makeButton} onClick={checkTotalValidate}>
           만들기
         </button>
       </div>
