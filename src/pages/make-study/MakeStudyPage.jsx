@@ -160,7 +160,7 @@ export default function MakeStudyPage() {
 
   /* api 서버로 requset 요청 - post */
   const handleRequsetPost = (event) => {
-    const url = '';
+    const url = '/study';
     const study = {
       id,
       nickname,
