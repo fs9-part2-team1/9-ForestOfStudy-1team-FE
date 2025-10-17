@@ -1,0 +1,96 @@
+.gridContainer {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.headerRow {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 100%;
+}
+
+.daysHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.dayCell {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--font-gray);
+}
+
+.habitRow {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 100%;
+  height: 64px;
+}
+
+.habitName {
+  font-weight: 700;
+  font-size: 18px;
+  text-align: right;
+  color: var(--font-black);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.statusCells {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.checkBtn {
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.checkBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.sticker {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+}
+
+@media (min-width: 744px) and (max-width: 1023px) {
+  .dayCell {
+    width: 4rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 743px) {
+  .emptyHeader {
+    width: 7.625rem;
+    padding: 1rem;
+  }
+
+  .dayCell {
+    font-size: 0.875rem;
+    width: 4rem;
+  }
+
+  .habitName {
+    width: 7.625rem;
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .checkBtn {
+    width: 4rem;
+    height: 4rem;
+  }
+}

@@ -1,0 +1,19 @@
+.emojiCard {
+  display: inline-flex;
+  padding: 0.375rem 0.5rem;
+  align-items: center;
+  gap: 0.3125rem;
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.emojiType {
+  color: var(--font-black);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.emojiCount {
+  color: #fff;
+  font-weight: 400;
+}
