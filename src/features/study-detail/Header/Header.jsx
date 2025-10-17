@@ -1,3 +1,4 @@
+import EmojiPicker from 'emoji-picker-react';
 import { useState } from 'react';
 import { EmojiCard } from '@/components';
 import plus_white from '@/assets/icons/common/ic_plus_white.png';
@@ -7,9 +8,12 @@ import { EditStudyModal } from '..';
 import { CustomToast } from '@/components/CustomToast/CustomToast';
 
 export default function Header({ data, onDelete }) {
-  const { reactions, nickname, title, password } = data;
+  const { reactions: initialReactions, nickname, title, password } = data;
+
   const [showAll, setShowAll] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [isOpenPicker, setIsOpenPicker] = useState(false);
+  const [reactions, setReactions] = useState(initialReactions);
 
   const MAX_VISIBLE = 3;
   const visibleEmojis = reactions.slice(0, MAX_VISIBLE);
@@ -30,16 +34,33 @@ export default function Header({ data, onDelete }) {
     }
   };
 
+  const handleTogglePicker = () => {
+    setIsOpenPicker((prev) => !prev);
+  };
+
+  const onEmojiPick = (emojiData) => {
+    const emoji = emojiData.emoji;
+
+    const exists = reactions.find((r) => r.emoji === emoji);
+    if (exists) {
+      setReactions((prev) =>
+        prev.map((r) => (r.emoji === emoji ? { ...r, count: r.count + 1 } : r)),
+      );
+    } else {
+      setReactions((prev) => [...prev, { emoji, count: 1 }]);
+    }
+
+    setIsOpenPicker(false);
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.emojiGroup}>
         <div className={styles.emoji}>
-          {/* EmojiCard MAX_VISIBLE 렌더링 */}
           {visibleEmojis.map((reaction, i) => (
             <EmojiCard key={i} emoji={reaction.emoji} count={reaction.count} />
           ))}
 
-          {/* 숨겨진 이모지가 존재할 때만 +(개수) 버튼 표시 */}
           {hiddenCount > 0 && (
             <button className={styles.moreShowBtn} onClick={handleToggle}>
               <img className={styles.plus} src={plus_white} alt="더보기" />
@@ -47,7 +68,6 @@ export default function Header({ data, onDelete }) {
             </button>
           )}
 
-          {/* +(개수) 버튼 클릭 시 모달 등장 */}
           {showAll && hiddenCount > 0 && (
             <div className={styles.emojiModal}>
               <div className={styles.emojiModalContent}>
@@ -62,16 +82,31 @@ export default function Header({ data, onDelete }) {
             </div>
           )}
         </div>
-        <button className={styles.addBtn}>
-          <img className={styles.smile} src={icon_smile} alt="웃는 이모지" />
-          추가
-        </button>
+
+        <div className={styles.emojiPickerContainer}>
+          <button className={styles.addBtn} onClick={handleTogglePicker}>
+            <img className={styles.smile} src={icon_smile} alt="웃는 이모지" />
+            추가
+          </button>
+
+          {isOpenPicker && (
+            <div className={styles.pickerWrapper}>
+              <EmojiPicker
+                className={styles.emojiPicker}
+                onEmojiClick={onEmojiPick}
+              />
+            </div>
+          )}
+        </div>
       </div>
+
       <div className={styles.actionBtn}>
         <button className={styles.shareBtn} onClick={handleShare}>
           공유하기
         </button>
+
         <p className={styles.line}>|</p>
+
         <EditStudyModal
           buttonText="수정하기"
           nickname={nickname}
@@ -80,7 +115,9 @@ export default function Header({ data, onDelete }) {
           btnClassName={styles.headerEditBtn}
           redirectTo="/make-study"
         />
+
         <p className={styles.line}>|</p>
+
         <EditStudyModal
           buttonText="스터디 삭제하기"
           nickname={nickname}
@@ -90,6 +127,7 @@ export default function Header({ data, onDelete }) {
           onDelete={onDelete}
         />
       </div>
+
       {showToast && (
         <CustomToast
           show={showToast}

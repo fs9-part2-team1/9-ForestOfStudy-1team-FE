@@ -4,6 +4,7 @@
   align-items: center;
   width: 100%;
   white-space: nowrap;
+  max-width: 70rem;
   margin-bottom: 1.5rem;
 }
 
@@ -31,7 +32,7 @@
   background: #fff;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 8px);
   left: -1rem;
   z-index: 100;
   min-width: 13.625rem;
@@ -72,6 +73,17 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.3);
   cursor: pointer;
+}
+
+.emojiPickerContainer {
+  position: relative;
+}
+
+.pickerWrapper {
+  position: absolute;
+  z-index: 999px;
+  top: 38px;
+  left: 0;
 }
 
 .smile {
@@ -118,6 +130,9 @@
 
 .headerDeleteBtn {
   color: var(--font-gray);
+}
+
+@media (min-width: 744px) and (max-width: 1919px) {
 }
 
 @media (max-width: 743px) {
