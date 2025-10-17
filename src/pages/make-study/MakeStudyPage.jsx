@@ -13,113 +13,334 @@
  */
 
 import MainLayout from '@/Layouts/MainLayout';
-import style from './MakeStudyPage.module.css';
+import styles from './MakeStudyPage.module.css';
+import bgSelectIcon from '@/assets/icons/common/ic_bg_selected.png';
 import visibilityOffIcon from '@/assets/icons/password/btn_visibility_off.png';
 import visibilityOnIcon from '@/assets/icons/password/btn_visibility_on.png';
+import deskThumb from '@/assets/images/thumbnail/img_desk_thumbnail.png';
+import plantThumb from '@/assets/images/thumbnail/img_plant_thumbnail.png';
+import wallThumb from '@/assets/images/thumbnail/img_wall_thumbnail.png';
+import windowThumb from '@/assets/images/thumbnail/img_window_thumbnail.png';
+import deskImage from '@/assets/images/background/img_desk.jpg';
+import plantImage from '@/assets/images/background/img_plant.jpg';
+import wallImage from '@/assets/images/background/img_wall.jpg';
+import windowImage from '@/assets/images/background/img_window.jpg';
+
+import axios from 'axios';
+import { v4 as uuid } from 'uuid';
+
+/* 배경 이미지 썸네일 리스트 */
+const backgroundList = [
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--green)',
+    image: 'var(--card--green)',
+  },
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--yellow)',
+    image: 'var(--card--yellow)',
+  },
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--blue)',
+    image: 'var(--card--blue)',
+  },
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--pink)',
+    image: 'var(--card--pink)',
+  },
+  { id: uuid(), type: 'img', value: deskThumb, image: deskImage },
+  { id: uuid(), type: 'img', value: plantThumb, image: plantImage },
+  { id: uuid(), type: 'img', value: wallThumb, image: wallImage },
+  { id: uuid(), type: 'img', value: windowThumb, image: windowImage },
+];
 
 export default function MakeStudyPage() {
-  const backgroundList = [
-    'var(--card--green)',
-    'var(--card--yellow)',
-    'var(--card--blue)',
-    'var(--card--pink)',
-    'var(--card--green)',
-    'var(--card--yellow)',
-    'var(--card--blue)',
-    'var(--card--pink)',
-  ];
+  let id = '';
+  let title = '';
+  let nickname = '';
+  let password = '';
+  let passwordConfirm = '';
+  let description = '';
+  let background = {};
+  let prevBackgroundElement;
 
-  const passwordVisibleToggle = (event) => {};
+  /* 비밀 번호 입력란 보여주기 기능 토글 */
+  const passwordVisibleToggle = (event) => {
+    const inputPassword = event.currentTarget.previousElementSibling;
 
-  const validatePassword = () => {};
+    if (event.currentTarget.classList.contains('invisibled')) {
+      inputPassword.type = 'text';
+      event.currentTarget.classList.remove('invisibled');
+      event.currentTarget.src = visibilityOnIcon;
+    } else {
+      inputPassword.type = 'password';
+      event.currentTarget.classList.add('invisibled');
+      event.currentTarget.src = visibilityOffIcon;
+    }
+  };
 
-  const validatePasswordConfirm = () => {};
+  /* 스터디 제목 입련란 유효성 검사 */
+  const checkValidateTitle = () => {
+    return title ? true : false;
+  };
+
+  /* 닉네임 입력란 유효성 검사 */
+  const checkValidateNickname = (evet) => {
+    return nickname ? true : false;
+  };
+
+  /* 비밀번호 입력란 유효성 검사 */
+  const checkValidatePassword = () => {
+    return password.length > 8;
+  };
+
+  /* 비밀번호 확인 입력란 유효성 검사 */
+  const checkValidatePasswordConfirm = () => {
+    return passwordConfirm.length !== 0 && password === passwordConfirm;
+  };
+
+  /* 닉네임 입력란 이벤트 핸들 */
+  const onInputNickname = (event) => {
+    const err = event.currentTarget.nextElementSibling;
+    nickname = event.currentTarget.value;
+
+    const isValidate = checkValidateNickname();
+
+    err.className = isValidate
+      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
+      : `${styles.inputErrMessage}`;
+  };
+
+  /* 스터디 제목 입력란 이벤트 핸들 */
+  const onInputTitle = (event) => {
+    const err = event.currentTarget.nextElementSibling;
+    title = event.currentTarget.value;
+
+    const isValidate = checkValidateTitle();
+
+    err.className = isValidate
+      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
+      : `${styles.inputErrMessage}`;
+  };
+
+  /* 비밀번호 입력란 이벤트 핸들 */
+  const onInputPassword = (event) => {
+    const err = event.currentTarget.parentElement.nextElementSibling;
+    password = event.currentTarget.value;
+
+    const isValidate = checkValidatePassword();
+
+    // 비밀번호 확인 입력란 강제 이벤트 발생 후 유효성 체크하는 기능 추 후에 구현 예정
+    const isValidatePasswordConfirm = checkValidatePasswordConfirm();
+    const passwordConfirmInputElement =
+      event.currentTarget.parentElement.parentElement.nextElementSibling
+        .firstElementChild.nextElementSibling.firstElementChild;
+
+    console.log('passwordConfirmInputElement : ', passwordConfirmInputElement);
+
+    err.className = isValidate
+      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
+      : `${styles.inputErrMessage}`;
+
+    err.innerText =
+      password.length === 0
+        ? '비밀번호를 입력해 주세요'
+        : '비밀번호를 8자 이상 입력해주세요';
+
+    passwordConfirmInputElement.dispatchEvent(new CustomEvent('input'));
+  };
+
+  /* 비밀번호 확인 입력란 이벤트 핸들 */
+  const onInputPasswordConfirm = (event) => {
+    const err = event.currentTarget.parentElement.nextElementSibling;
+    passwordConfirm = event.currentTarget.value;
+
+    const isValidate = checkValidatePasswordConfirm();
+
+    err.innerText = passwordConfirm
+      ? '비밀번호가 일치하지 않습니다'
+      : '비밀번호 확인을 입력해 주세요';
+
+    err.className = isValidate
+      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
+      : `${styles.inputErrMessage}`;
+  };
+
+  /* 스터디 소개란 이벤트 핸들 */
+  const onInputDescription = (event) => {
+    description = event.currentTarget.value;
+  };
+
+  /* 배경 화면 리스트 선택 이벤트 */
+  const onClickBackground = (event, paramBackground) => {
+    console.log('onClickBackground: ', paramBackground);
+    background = { ...paramBackground };
+
+    if (!prevBackgroundElement) {
+      prevBackgroundElement =
+        event.currentTarget.parentElement.firstElementChild.firstElementChild;
+    }
+
+    prevBackgroundElement.src = '';
+    event.currentTarget.firstElementChild.src = bgSelectIcon;
+    prevBackgroundElement = event.currentTarget.firstElementChild;
+  };
+
+  /* 모든 입력창 유효성 검사 함수 */
+  const checkTotalValidate = () => {
+    const isValidateTitle = checkValidateTitle();
+    const isValidateNickname = checkValidateNickname();
+    const isValidatePassword = checkValidatePassword();
+    const isValidatePasswordConfirm = checkValidatePasswordConfirm();
+
+    if (
+      isValidateTitle &&
+      isValidateNickname &&
+      isValidatePassword &&
+      isValidatePasswordConfirm
+    ) {
+      handleRequsetPost();
+    }
+  };
+
+  /* api 서버로 requset 요청 - post */
+  const handleRequsetPost = () => {
+    const url = '/study';
+    const study = {
+      id,
+      nickname,
+      title,
+      description,
+      background,
+      password,
+    };
+
+    console.log('[handleRequestPost] study: ', study);
+
+    axios
+      .post(url, study)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(`[${error.code} - ${error.status}] ${error.message} `);
+      });
+  };
 
   return (
     <MainLayout>
-      <div className={style.appContainer}>
-        <h1 className={style.title}>스터디 만들기</h1>
-        <div className={style.inputContainer}>
-          <div className={style.inputText}>
+      <div className={styles.appContainer}>
+        <h1 className={styles.title}>스터디 만들기</h1>
+        <div className={styles.inputContainer}>
+          <div className={styles.inputText}>
             <label htmlFor="nickname">닉네임</label>
             <input
               type="text"
               name="nickname"
+              onInput={onInputNickname}
+              onBlur={onInputNickname}
               placeholder="닉네임을 입력해 주세요"
             />
-            <span className={style.inputErrMessage}>
+            <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
               * 닉네임을 입력해 주세요
             </span>
           </div>
-          <div className={style.inputText}>
+          <div className={styles.inputText}>
             <label htmlFor="studyname">스터디 이름</label>
             <input
               type="text"
               name="studyname"
+              onInput={onInputTitle}
+              onBlur={onInputTitle}
               placeholder="스터디 이름을 입력해 주세요"
             />
-            <span className={style.inputErrMessage}>
+            <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
               * 스터디 이름을 입력해 주세요
             </span>
           </div>
-          <div className={style.textArea}>
+          <div className={styles.textArea}>
             <label htmlFor="introduce">소개</label>
             <textarea
               name="introduce"
               placeholder="소개 멘트를 작성해 주세요"
-            ></textarea>
+              onInput={onInputDescription}
+            />
           </div>
         </div>
-        <div className={style.backgroundListContainer}>
+        <div className={styles.backgroundListContainer}>
           <span>배경을 선택해 주세요</span>
-          <ul className={style.backgroundList}>
+          <ul className={styles.backgroundList}>
             {backgroundList.map((bg, index) => (
               <li
-                className={style.backgroundItem}
-                key={index}
-                style={{ backgroundColor: bg }}
-              ></li>
+                className={styles.backgroundItem}
+                key={bg.id}
+                onClick={(event) => onClickBackground(event, bg)}
+                style={
+                  bg.type === 'bg'
+                    ? { backgroundColor: bg.value }
+                    : { backgroundImage: `url(${bg.value})` }
+                }
+              >
+                <img
+                  className={styles.bgSelectIcon}
+                  src={index === 0 ? bgSelectIcon : null}
+                />
+              </li>
             ))}
           </ul>
         </div>
-        <div className={style.inputPasswordContainer}>
-          <div className={style.inputPassword}>
+        <div className={styles.inputPasswordContainer}>
+          <div className={styles.inputPassword}>
             <label htmlFor="password">비밀번호</label>
-            <div className={style.passwordWrap}>
+            <div className={styles.passwordWrap}>
               <input
                 type="password"
                 name="password"
+                onInput={onInputPassword}
+                onBlur={onInputPassword}
                 placeholder="비밀번호를 입력해 주세요"
               ></input>
               <img
-                className={`${style.passwordToggleButton} invisibled`}
+                className={`${styles.passwordToggleButton} invisibled`}
                 src={visibilityOffIcon}
                 onClick={(event) => passwordVisibleToggle(event)}
               />
             </div>
-            <span className={style.inputErrMessage}>
+            <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
               * 비밀번호를 입력해 주세요
             </span>
           </div>
-          <div className={style.inputPassword}>
+          <div className={styles.inputPassword}>
             <label htmlFor="passwordConfirm">비밀번호 확인</label>
-            <div className={style.passwordWrap}>
+            <div className={styles.passwordWrap}>
               <input
                 type="password"
                 name="passwordConfirm"
+                onInput={onInputPasswordConfirm}
+                onBlur={onInputPasswordConfirm}
                 placeholder="비밀번호를 다시 한 번 입력해 주세요"
               />
               <img
-                className={style.passwordToggleButton}
-                src={visibilityOnIcon}
+                className={styles.passwordToggleButton}
+                src={visibilityOffIcon}
+                onClick={(event) => passwordVisibleToggle(event)}
               />
             </div>
-            <span className={style.inputErrMessage}>
+            <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
               * 비밀번호가 일치하지 않습니다
             </span>
           </div>
         </div>
-        <button className={style.makeButton}>만들기</button>
+        <button className={styles.makeButton} onClick={checkTotalValidate}>
+          만들기
+        </button>
       </div>
     </MainLayout>
   );

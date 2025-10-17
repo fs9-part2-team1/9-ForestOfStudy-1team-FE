@@ -1,0 +1,49 @@
+.ChartContainer {
+  display: flex;
+  max-width: 1120px;
+  /* height: 31.9375rem; */
+  padding: 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  /* gap: 0.625rem; */
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid var(--border-line);
+  width: 100%;
+}
+
+.title {
+  color: var(--font-black);
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.habitChart {
+  display: flex-start;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* height: 100%; */
+}
+
+.noDataScript {
+  color: var(--font-gray);
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.2rem;
+}
+
+@media (min-width: 744px) and (max-width: 1023px) {
+  .noDataScript {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+}
+
+@media (max-width: 743px) {
+  .title {
+    font-size: 1.125rem;
+  }
+}
