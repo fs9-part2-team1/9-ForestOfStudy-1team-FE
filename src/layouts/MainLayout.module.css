@@ -41,7 +41,7 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 744px) and (max-width: 1023px) {
   .logo {
     margin: 1.25rem 0 1.25rem 1.5rem;
   }
@@ -51,7 +51,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 743px) {
   .logo {
     margin: 2rem 0 2rem 1rem;
     width: 106px;

@@ -1,13 +1,13 @@
 @font-face {
-  font-family: "EF_JejuDoldam";
-  src: url("/fonts/EF_jejudoldam.woff") format("woff");
+  font-family: 'EF_JejuDoldam';
+  src: url('/fonts/EF_jejudoldam.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
@@ -29,13 +29,32 @@
   border-radius: 16px;
   padding: 40px 24px;
   width: 648px;
-  display: flex;           
-  flex-direction: column;    
-  gap: 10px;                 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   text-align: center;
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
 }
 
+/* max-width: 743일 때 보이는 버튼 */
+.editCloseBtn {
+  background-color: #fff;
+  color: var(--text-green);
+  width: 9.25rem;
+  height: 1.8125rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.mobileCloseBtn {
+  display: none;
+}
 
 /*  Mobile (최대 767px)만 반응형 적용 */
 @media (max-width: 767px) {
@@ -48,7 +67,7 @@
 .title {
   font-size: 18px;
   font-weight: 600;
- 
+
   color: #333;
 }
 
@@ -64,12 +83,29 @@
 }
 
 .closeBtn {
-  background: #99C08E;
+  background: #99c08e;
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
-  font-family: "EF_JejuDoldam", sans-serif;
+  font-family: 'EF_JejuDoldam', sans-serif;
+}
+
+@media (max-width: 743px) {
+  .btnBox {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .closeBtn {
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+
+  .mobileCloseBtn {
+    display: flex;
+  }
 }
