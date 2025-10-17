@@ -5,17 +5,14 @@ import MainLayout from "@/layouts/MainLayout";
 import Modal from "@/components/Modal/Modal";
 import { mockData } from "@/data/mock-data";
 
-import HomePage from "../../pages/home/HomePage";
 import trashIcon from "@/assets/icons/common/ic_trash.png";
 import arrowRightIcon from "@/assets/icons/common/ic_arrow_right.png";
 
 export default function TodayHabitPage() {
   const today = new Date().toISOString().split("T")[0];
-
   const [habitDate, setHabitDate] = useState({
     [today]: mockData.habits.map((habit) => ({ ...habit, completed: false })),
   });
-
   const [currentTime, setCurrentTime] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -90,8 +87,7 @@ export default function TodayHabitPage() {
   };
 
   const goToFocusPage = () => navigate("/today-focus");
-const goToHomePage = () => navigate("/");
-
+  const goToHomePage = () => navigate("/");
 
   return (
     <MainLayout disabled={true}>
@@ -117,7 +113,6 @@ const goToHomePage = () => navigate("/");
             </div>
           </div>
 
-          {/* ✅ [수정] cardHeader 안에 제목과 버튼을 함께 배치했습니다. */}
           <div className={styles.card}>
             <div className={styles.cardHeader}>
               <h3>오늘의 습관</h3>
@@ -156,10 +151,10 @@ const goToHomePage = () => navigate("/");
       {isModalOpen && (
         <div className={styles.modalWrapper}>
           <Modal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            title="습관 목록"
-          >
+           isOpen={isModalOpen}
+  title="습관 목록"
+  
+>
             <div className={styles.habitModal}>
               <ul className={styles.habitEditList}>
                 {allUniqueHabits.map((habit) => (
@@ -168,9 +163,7 @@ const goToHomePage = () => navigate("/");
                       <input
                         type="text"
                         value={habit.name}
-                        onChange={(e) =>
-                          editHabitName(habit.id, e.target.value)
-                        }
+                        onChange={(e) => editHabitName(habit.id, e.target.value)}
                         className={styles.habitInput}
                       />
                     </div>

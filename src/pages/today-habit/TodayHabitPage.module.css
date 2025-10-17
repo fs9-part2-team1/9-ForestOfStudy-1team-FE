@@ -163,6 +163,7 @@ margin-left: 75px;
 }
 
 /* ---------- MODAL ---------- */
+
 .habitModal {
   width: 100%;
   display: flex;
@@ -301,7 +302,7 @@ margin-left: 75px;
   border: none;
 }
 
-.modalWrapper :global(._btnBox_118gq_121) {
+.modalWrapper :global(._btnBox_4t957_159) {
   display: none !important;
 }
 
