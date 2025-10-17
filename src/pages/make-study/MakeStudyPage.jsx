@@ -21,19 +21,44 @@ import alvaroThumbnail from '@/assets/images/thumbnail/alvaro-reyes-unsplash.png
 import andrewThumbnail from '@/assets/images/thumbnail/andrew-ridley-unsplash.png';
 import chrisThumbnail from '@/assets/images/thumbnail/chris-lee-unsplash.png';
 import mikeyThumbnail from '@/assets/images/thumbnail/mikey-harris-unsplash.png';
+import alvaroImage from '@/assets/images/background/alvaro-reyes.jpg';
+import andrewImage from '@/assets/images/background/andrew-ridley.jpg';
+import chrisImage from '@/assets/images/background/chris-lee.jpg';
+import mikeyImage from '@/assets/images/background/mikey-harris.jpg';
+
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
 /* 배경 이미지 썸네일 리스트 */
 const backgroundList = [
-  { id: uuid(), type: 'bg', value: 'var(--card--green)' },
-  { id: uuid(), type: 'bg', value: 'var(--card--yellow)' },
-  { id: uuid(), type: 'bg', value: 'var(--card--blue)' },
-  { id: uuid(), type: 'bg', value: 'var(--card--pink)' },
-  { id: uuid(), type: 'img', value: mikeyThumbnail },
-  { id: uuid(), type: 'img', value: chrisThumbnail },
-  { id: uuid(), type: 'img', value: andrewThumbnail },
-  { id: uuid(), type: 'img', value: alvaroThumbnail },
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--green)',
+    image: 'var(--card--green)',
+  },
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--yellow)',
+    image: 'var(--card--yellow)',
+  },
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--blue)',
+    image: 'var(--card--blue)',
+  },
+  {
+    id: uuid(),
+    type: 'bg',
+    value: 'var(--card--pink)',
+    image: 'var(--card--pink)',
+  },
+  { id: uuid(), type: 'img', value: mikeyThumbnail, image: mikeyImage },
+  { id: uuid(), type: 'img', value: chrisThumbnail, image: chrisImage },
+  { id: uuid(), type: 'img', value: andrewThumbnail, image: andrewImage },
+  { id: uuid(), type: 'img', value: alvaroThumbnail, image: alvaroImage },
 ];
 
 /* 배경 이미지 선택 아이콘 컴포넌트 */
@@ -118,7 +143,12 @@ export default function MakeStudyPage() {
     const isValidate = checkValidatePassword();
 
     // 비밀번호 확인 입력란 강제 이벤트 발생 후 유효성 체크하는 기능 추 후에 구현 예정
-    // const isValidatePasswordConfirm = checkValidatePasswordConfirm();
+    const isValidatePasswordConfirm = checkValidatePasswordConfirm();
+    const passwordConfirmInputElement =
+      event.currentTarget.parentElement.parentElement.nextElementSibling
+        .firstElementChild.nextElementSibling.firstElementChild;
+
+    console.log('passwordConfirmInputElement : ', passwordConfirmInputElement);
 
     err.className = isValidate
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
@@ -128,6 +158,8 @@ export default function MakeStudyPage() {
       password.length === 0
         ? '비밀번호를 입력해 주세요'
         : '비밀번호를 8자 이상 입력해주세요';
+
+    passwordConfirmInputElement.dispatchEvent(new CustomEvent('input'));
   };
 
   /* 비밀번호 확인 입력란 이벤트 핸들 */
