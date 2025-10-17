@@ -17,14 +17,14 @@ import styles from './MakeStudyPage.module.css';
 import bgSelectIcon from '@/assets/icons/common/ic_bg_selected.png';
 import visibilityOffIcon from '@/assets/icons/password/btn_visibility_off.png';
 import visibilityOnIcon from '@/assets/icons/password/btn_visibility_on.png';
-import alvaroThumbnail from '@/assets/images/thumbnail/alvaro-reyes-unsplash.png';
-import andrewThumbnail from '@/assets/images/thumbnail/andrew-ridley-unsplash.png';
-import chrisThumbnail from '@/assets/images/thumbnail/chris-lee-unsplash.png';
-import mikeyThumbnail from '@/assets/images/thumbnail/mikey-harris-unsplash.png';
-import alvaroImage from '@/assets/images/background/alvaro-reyes.jpg';
-import andrewImage from '@/assets/images/background/andrew-ridley.jpg';
-import chrisImage from '@/assets/images/background/chris-lee.jpg';
-import mikeyImage from '@/assets/images/background/mikey-harris.jpg';
+import deskThumb from '@/assets/images/thumbnail/img_desk_thumbnail.png';
+import plantThumb from '@/assets/images/thumbnail/img_plant_thumbnail.png';
+import wallThumb from '@/assets/images/thumbnail/img_wall_thumbnail.png';
+import windowThumb from '@/assets/images/thumbnail/img_window_thumbnail.png';
+import deskImage from '@/assets/images/background/img_desk.jpg';
+import plantImage from '@/assets/images/background/img_plant.jpg';
+import wallImage from '@/assets/images/background/img_wall.jpg';
+import windowImage from '@/assets/images/background/img_window.jpg';
 
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
@@ -55,16 +55,11 @@ const backgroundList = [
     value: 'var(--card--pink)',
     image: 'var(--card--pink)',
   },
-  { id: uuid(), type: 'img', value: mikeyThumbnail, image: mikeyImage },
-  { id: uuid(), type: 'img', value: chrisThumbnail, image: chrisImage },
-  { id: uuid(), type: 'img', value: andrewThumbnail, image: andrewImage },
-  { id: uuid(), type: 'img', value: alvaroThumbnail, image: alvaroImage },
+  { id: uuid(), type: 'img', value: deskThumb, image: deskImage },
+  { id: uuid(), type: 'img', value: plantThumb, image: plantImage },
+  { id: uuid(), type: 'img', value: wallThumb, image: wallImage },
+  { id: uuid(), type: 'img', value: windowThumb, image: windowImage },
 ];
-
-/* 배경 이미지 선택 아이콘 컴포넌트 */
-function selectIcon() {
-  return <img src={bgSelectIcon} className={styles.bgSelectIcon} />;
-}
 
 export default function MakeStudyPage() {
   let id = '';
@@ -184,8 +179,9 @@ export default function MakeStudyPage() {
   };
 
   /* 배경 화면 리스트 선택 이벤트 */
-  const onClickBackground = (event, background) => {
-    id = background.id;
+  const onClickBackground = (event, paramBackground) => {
+    console.log('onClickBackground: ', paramBackground);
+    background = { ...paramBackground };
 
     if (!prevBackgroundElement) {
       prevBackgroundElement =
