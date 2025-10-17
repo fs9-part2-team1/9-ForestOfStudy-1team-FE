@@ -1,0 +1,386 @@
+.page {
+  background-color: #f7f5ef;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+}
+
+.container {
+  width: 1248px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- HEADER (Final Version) ---------- */
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 0 20px;
+  grid-template-areas:
+    "content buttons"
+    "time    .";
+}
+
+.headerContent {
+  grid-area: content;
+}
+
+.timeWrapper {
+  grid-area: time;
+  margin-top: 8px;
+}
+
+.headerBtns {
+  grid-area: buttons;
+  display: flex;
+  gap: 8px;
+  justify-self: end;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0;
+  font-family: 'Pretendard';
+  color: #414141;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-top: 10px;
+}
+
+.time {
+  display: inline-block;
+  background: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #e3e3e3;
+  margin-top:10px ;
+}
+
+.whiteBtn {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #818181;
+  padding: 8px 16px; 
+  gap: 8px; 
+  font-weight: normal;
+}
+
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+  filter: invert(55%) sepia(0%) saturate(1%) hue-rotate(200deg) brightness(93%) contrast(84%);
+}
+/* ---------- CARD (최종 확인용 코드) ---------- */
+.card {
+  border: 1px solid #e3e3e3;
+  border-radius: 12px;
+  padding: 32px 24px;
+  background: #fff;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 24px;
+  position: relative;      
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  margin-left: 140px;
+}
+
+.linkBtn {
+  font-size: 14px;
+  color: #777;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+margin-left: 75px;
+}
+/* ---------- HABIT LIST ---------- */
+.habitList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.habitItem {
+  width: 400px;
+  height: 54px;
+  padding: 14px 0;
+  border-radius: 20px;
+  border: none;
+  background-color: #ebebeb;
+  color: #818181;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+}
+
+.habitItem.done {
+  background-color: #a6c997;
+  color: #fff;
+}
+
+.empty {
+  color: #aaa;
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* ---------- MODAL ---------- */
+
+.habitModal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.habitModal h3 {
+  margin-bottom: 8px;
+}
+
+.habitEditList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.habitRow {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.habitBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 54px;
+  background-color: #eeeeee;
+  border-radius: 20px;
+
+}
+
+.habitInput {
+  flex: 1;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  color: #333;
+  outline: none;
+}
+
+.deleteBtn {
+  background-color: #ffe9ee;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -44px;
+}
+
+.deleteBtn:hover {
+  background-color: #ffccd5;
+}
+
+.deleteBtn img {
+  width: 14px;
+  height: 14px;
+}
+
+.addRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.plusBtn {
+  width: 400px;
+  height: 54px;
+  border-radius: 20px;
+  border: 1.8px solid #414141;
+  background-color: #fff;
+  color: #000;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.addInput {
+  width: 400px;
+  height: 54px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 16px;
+  background-color: #fff;
+  font-weight: 700;
+}
+
+.modalBtns {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.cancelBtn,
+.confirmBtn {
+  font-family: 'EF_jejudoldam';
+  flex: 1;
+  height: 48px;
+  font-size: 18px;
+  border-radius: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancelBtn {
+  background-color: #e5e5e5;
+  color: #fff;
+}
+
+.confirmBtn {
+  background-color: #99c08e;
+  color: white;
+  border: none;
+}
+
+.modalWrapper :global(._btnBox_4t957_159) {
+  display: none !important;
+}
+
+/* ----------- 반응형 ----------- */
+@media (max-width: 1248px) {
+  .container {
+    width: 100%;
+  }
+}/* Mobile (767px and below) */
+@media (max-width: 767px) {
+  .page {
+    padding: 20px;
+  }
+
+  .container {
+    padding: 20px;
+    height: auto;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    grid-template-areas:
+      "content"
+      "buttons"
+      "time";
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .headerBtns {
+    justify-self: stretch;
+  }
+
+  .whiteBtn {
+    padding: 10px 20px;
+  }
+
+  .card {
+    padding: 24px 16px;
+  }
+
+  .cardHeader h3 {
+    font-size: 18px;
+    margin-left: 65px;
+    text-align: center;
+  }
+.linkBtn{
+  margin-left:40px;
+}
+  .habitList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center; /* habitItem을 중앙 정렬 */
+  }
+
+  .habitItem,
+  .habitRow,
+  .addInput {
+    width: 100%;
+  }
+
+  .plusBtn {
+    width: 312px;
+    height: 54px;
+  }
+
+  .habitRow {
+    padding-right: 44px;
+  }
+
+  .deleteBtn {
+    right: 0;
+  }
+}
