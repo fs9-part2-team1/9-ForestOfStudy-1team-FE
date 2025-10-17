@@ -59,6 +59,7 @@ input,
 textarea {
   font: inherit;
   border: none;
+  cursor: pointer;
 }
 
 * {
