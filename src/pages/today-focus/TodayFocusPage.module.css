@@ -1,0 +1,234 @@
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 48px 56px;
+  max-width: 1248px;
+  height: 774px;;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* HEADER */
+.header {
+  width: 100%;
+  margin-bottom: 36px;
+}
+
+.headerTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+}
+
+.headerTitle h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.navBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.navBtn {
+height: 48px;
+  padding: 6px 14px;
+  border: 1px solid #e4e4e4;
+  border-radius: 15px;
+  background-color: #fff;
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+
+.subInfo {
+  margin-top: 12px;
+  color: #666;
+  font-size: 14px;
+}
+
+.pointInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.point {
+  color: #333;
+  font-weight: 500;
+  padding: 3px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  width: fit-content;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* TIMER BOX */
+.timerBox {
+  background: #fff;
+  border: 1px solid #efefef;
+  border-radius: 12px;
+  padding: 40px 0 48px;
+  text-align: center;
+  width: 1168px;
+  width: 100%;
+  height: 546px;
+  
+}
+
+.focusTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #414141;
+  text-align: center;
+  margin-bottom: 8px;
+ font-family: 'pretendard';
+justify-content: center;
+align-items: center;
+}
+
+.timerFixed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.timerFixed img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+.time {
+  font-size: 150px;
+  font-weight: 800;
+  color: #414141;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 273px; 
+  
+}
+
+
+.time.active {
+  color: #ff0000;
+}
+
+.time.overtime {
+  color: #555;
+}
+
+/* BUTTONS */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+
+/*  타이머 실행 중일 때 (회색 버튼) */
+.startBtn.running {
+  background-color: #818181;
+  cursor: default;
+}
+
+.startBtn.running:hover {
+  background-color: #818181; 
+}
+
+
+/* Start 버튼 */
+.startBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 28px;
+  cursor: pointer;
+  background-color: #9dc08b;
+  color: #fff;
+  font-weight: 800;
+  width: 333px;
+  height: 60px;
+
+
+}
+.startBtn img {
+  width: 30px;
+  height: 33px;
+  
+  margin-right: 4px; 
+}
+.startBtn:hover {
+  background-color: #8cb37a;
+  
+}
+
+/* Stop, Restart 버튼  */ 
+.pauseIconBtn,
+.restartIconBtn {
+    
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+
+.pauseIconBtn img,
+.restartIconBtn img {
+  width: 23px;
+  height: 28px;
+  
+  filter: brightness(0) invert(1) drop-shadow(0 0 0px #fff);
+}
+
+/* 각 버튼 */
+.pauseIconBtn {
+  width: 64px;
+  height: 64px;
+  background-color: #578246; 
+  
+}
+
+
+.restartIconBtn {
+  width: 64px;
+  height: 64px;
+  background-color: #f6f4ef;
+  filter: none;
+  background-color: #99C08E;
+
+}
+
+
