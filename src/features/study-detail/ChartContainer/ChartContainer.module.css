@@ -1,11 +1,9 @@
 .ChartContainer {
   display: flex;
   max-width: 1120px;
-  /* height: 31.9375rem; */
   padding: 1.5rem;
   flex-direction: column;
   align-items: flex-start;
-  /* gap: 0.625rem; */
   flex-shrink: 0;
   border-radius: 20px;
   border: 1px solid var(--border-line);
@@ -25,7 +23,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* height: 100%; */
 }
 
 .noDataScript {
@@ -35,7 +32,7 @@
   line-height: 1.2rem;
 }
 
-@media (min-width: 744px) and (max-width: 1023px) {
+@media (min-width: 744px) and (max-width: 1919px) {
   .noDataScript {
     font-size: 1.25rem;
     line-height: 1.5rem;

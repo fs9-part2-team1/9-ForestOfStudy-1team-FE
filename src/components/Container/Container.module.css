@@ -2,12 +2,19 @@
   display: flex;
   padding: 2.5rem;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   border-radius: 20px;
   background: #fff;
   margin: 2.5rem auto;
   max-width: 1200px;
 }
+
+/* @media (max-width: 1920px) {
+  .container {
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
+} */
 
 @media (min-width: 744px) and (max-width: 1023px) {
   .container {
