@@ -5,6 +5,7 @@
   align-items: flex-start;
   gap: 8px;
   width: 100%;
+  max-width: 70rem;
   margin-bottom: 1.5rem;
 }
 

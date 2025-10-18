@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 70rem;
   margin-bottom: 1rem;
 }
 
@@ -39,8 +40,14 @@
   width: 1.5rem;
   height: 1.5rem;
 }
+/* 
+@media (min-width: 1920px) {
+  .btnGroup {
+    gap: 1rem;
+  }
+} */
 
-@media (min-width: 744px) and (max-width: 1023px) {
+@media (min-width: 744px) and (max-width: 1024px) {
   .btnGroup {
     gap: 0.5rem;
   }
