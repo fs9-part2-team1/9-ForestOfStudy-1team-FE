@@ -1,0 +1,438 @@
+/* ---------- 기본 레이아웃 ---------- */
+.page {
+  background-color: #f7f5ef;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1248px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 48px 56px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* 첫 줄: 제목 + 버튼 한 줄 배치 */
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+}
+
+.navBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.navBtn {
+  height: 40px;
+  padding: 6px 16px;
+  border: 1px solid #e4e4e4;
+  border-radius: 15px;
+  background-color: #fff;
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+ 
+}
+
+/* 두 번째 줄: 포인트 */
+.getPoint {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #666;
+}
+
+.pointBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.leaf {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* ---------- TIMER BOX ---------- */
+.timerBox {
+  background: #fff;
+  border: 1px solid #efefef;
+  border-radius: 12px;
+  padding: 40px 0 48px;
+  text-align: center;
+  width: 100%;
+  max-width: 1168px;
+}
+
+.focusTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #414141;
+  margin-bottom: 8px;
+}
+
+.timerFixed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #414141;
+  margin: 20px auto 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 50px;
+  width: 83px;
+  height: 31px;
+  font-weight: 500;
+}
+
+.timerFixed img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+
+.time {
+  font-size: 150px;
+  font-weight: 800;
+  color: #414141;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 273px;
+  transition: color 0.3s;
+}
+
+.time.active {
+  color: #ff0000;
+}
+
+.time.overtime {
+  color: #555;
+}
+
+/* ---------- BUTTONS ---------- */
+.buttonContainer,
+.overtimeButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Start 버튼 */
+.startBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #99c08e;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  width: 333px;
+  height: 60px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+
+.startBtn.running {
+  background-color: #818181;
+  cursor: default;
+}
+
+.startBtn img {
+  width: 30px;
+  height: 33px;
+  margin-right: 4px;
+}
+
+/* 정지(일시정지) / 재시작 */
+.pauseIconBtn,
+.restartIconBtn {
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}
+
+.pauseIconBtn {
+  background-color: #578246;
+}
+
+.restartIconBtn {
+  background-color: #99c08e;
+}
+
+.pauseIconBtn img,
+.restartIconBtn img {
+  width: 23px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
+/* 초과 상태 (Stop!) */
+.overtimeButtons {
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.stopBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #99c08e;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 28px;
+  font-weight: 800;
+  padding: 10px 28px;
+  cursor: pointer;
+  width: 333px;
+  height: 60px;
+}
+
+.stopBtn img {
+  width: 18px;
+  height: 18px;
+  
+}
+
+/* ---------- Mobile (max-width: 767px) ---------- */
+@media (max-width: 767px) {
+  .container {
+    padding: 20px;
+    border-radius: 12px;
+    width: 344px;
+    height: 556px;
+  }
+
+  .headerTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .headerTitle {
+    font-size: 24px;
+    font-weight: 800px;
+  }
+
+.navBtns {
+  display: flex;
+  margin-top: 10px;
+}
+
+.navBtn {
+  height: 40px;
+  padding: 6px 16px;
+  border: 1px solid #e4e4e4;
+  border-radius: 15px;
+  background-color: #fff;
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+ 
+}
+  .getPoint {
+    align-items: center;
+    width: 100%;
+    align-items: flex-start;
+  }
+.title{
+color: #818181;
+font-size: 16px;
+font-weight: 400;
+margin-top: 10px;
+}
+  .pointBox {
+    margin-top: 5px;
+    align-items: flex-start;
+    font-size: 16px;
+    height: 31px;
+   
+  }
+
+  .timerBox {
+   margin-top: -20px;
+    width: 312px;
+    height: 342px;
+  }
+
+  .focusTitle {
+    font-size: 24px;
+  }
+
+  .time {
+    font-size:80px;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+}
+
+
+  .buttonContainer {
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .pauseIconBtn,
+  .restartIconBtn {
+    width: 48px;
+    height: 48px;
+    margin-top: 60px;
+  }
+
+  .startBtn {
+    font-size: 18px !important;
+    padding: 10px 24px !important;
+    border-radius: 40px !important;
+    width: 140px !important;
+    height: 45px !important;
+    margin-top: 60px !important;
+
+    flex: none !important; 
+    max-width: 140px !important; 
+    align-self: center !important; 
+  }
+
+ 
+  .startBtn.running {
+    width: 140px ;
+    height: 45px ;
+  }
+  /* Stop 버튼 (모바일용) */
+.stopBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #99c08e !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+
+  border: none;
+  border-radius: 40px !important;
+  width: 140px !important;
+  height: 45px !important;
+  margin-top: 60px !important;
+
+  flex: none !important;
+  max-width: 140px !important; 
+  align-self: center !important; 
+  text-align: center;
+}
+
+/* ----------  Stop & Restart 정렬 문제 해결 ---------- */
+.overtimeButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 0px; 
+}
+
+/* Stop 버튼 */
+.stopBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  background-color: #99c08e !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+
+  border: none;
+  border-radius: 40px !important;
+  width: 140px !important;
+  height: 45px !important;
+
+  flex: none !important;
+  max-width: 140px !important;
+  align-self: center !important;
+  text-align: center;
+}
+
+/* Restart 버튼 */
+.restartIconBtn {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50%;
+  background-color: #a5c79a !important;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.restartIconBtn img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+
+
+}
+
