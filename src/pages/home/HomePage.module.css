@@ -1,0 +1,141 @@
+:global(body) {
+  background-color: #f6f4ef;
+}
+
+.wrapper {
+  width: 344px;
+  margin: 0 auto;
+  padding: 16px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.sectionTitle {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.allStudySectionHeader {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 16px 0;
+}
+
+.searchBarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 312px;
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid #f6f4ef;
+  border-radius: 20px;
+}
+
+.searchBarWrapper > input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+}
+
+.searchBarWrapper > input::placeholder {
+  color: #9ca3af;
+  font-size: 16px;
+}
+
+.sortButtonWrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 156px;
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid #f6f4ef;
+  border-radius: 20px;
+}
+
+.sortButtonWrapper > select {
+  width: 100%;
+  font-size: 16px;
+  color: #9ca3af;
+  border: 0;
+  background: transparent;
+  appearance: none;
+}
+
+.sortButtonWrapper > select:focus,
+.moreStudyBtn:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.3);
+  outline-offset: 2px;
+}
+
+.allStudyCardSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* width: 100%; */
+  width: 312px;
+  min-height: 405px;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+.moreBtnWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.moreStudyBtn {
+  display: inline-block;
+  width: 280px;
+  height: 53px;
+  margin: 16px 0;
+  padding: 17px 0;
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #578246;
+  cursor: pointer;
+}
+
+@media (min-width: 744px) {
+  .wrapper {
+    width: 696px;
+    padding: 16px 24px;
+  }
+
+  .allStudySectionHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .allStudyCardSection {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 648px;
+    min-height: 623px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrapper {
+    width: 1200px;
+    padding: 40px;
+  }
+
+  .sectionTitle {
+    width: 1122px;
+  }
+
+  .allStudyCardSection {
+    width: 1122px;
+    min-height: 623px;
+  }
+}
