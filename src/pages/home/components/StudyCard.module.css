@@ -1,0 +1,93 @@
+.card {
+  height: 180px;
+  border: 1px solid #f6f4ef;
+  border-radius: 20px;
+  background-color: #e1edde;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  width: 208px;
+  padding: 16px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.point {
+  /* 수정 */
+  background-color: gray;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 110px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.point > img {
+  height: 14px;
+  margin-right: 5px;
+}
+
+.title > h2 {
+  margin: 10px 0 5px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #414141;
+}
+
+h2 > span {
+  color: #578246;
+}
+
+.days {
+  font-size: 12px;
+  font-weight: 400;
+  color: #818181;
+}
+
+.description {
+  font-size: 14px;
+  margin-top: 16px;
+  color: #414141;
+}
+
+@media (min-width: 744px) {
+  .card {
+    width: 312px;
+    height: 243px;
+    padding: 30px;
+    align-items: flex-start;
+  }
+
+  .summary {
+    width: 252px;
+    height: 183px;
+    padding: 0;
+    flex: none;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .card {
+    width: 358px;
+  }
+
+  .summary {
+    width: 298px;
+  }
+}
