@@ -1,6 +1,6 @@
+import { EditStudyModal } from '..';
 import right_arrow from '@/assets/icons/common/ic_arrow_right.png';
 import styles from './Title.module.css';
-import { EditStudyModal } from '..';
 
 export default function Title({ data }) {
   const { nickname, title, password } = data;
@@ -10,6 +10,7 @@ export default function Title({ data }) {
       <h1 className={styles.studyName}>
         {nickname}의 {title}
       </h1>
+
       <div className={styles.btnGroup}>
         <EditStudyModal
           buttonText={
@@ -29,6 +30,7 @@ export default function Title({ data }) {
           btnClassName={styles.goToPageBtn}
           redirectTo="/today-habit"
         />
+
         <EditStudyModal
           buttonText={
             <>

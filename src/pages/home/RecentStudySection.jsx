@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styles from './HomePage.module.css';
 
 function RecentStudySection() {

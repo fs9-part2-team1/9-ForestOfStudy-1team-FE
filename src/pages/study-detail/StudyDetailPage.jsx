@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MainLayout } from '@/layouts';
+import MainLayout from '@/layouts/MainLayout';
 import { Container } from '@/components';
 import {
   Header,

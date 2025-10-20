@@ -7,11 +7,9 @@ export default function ShareButton() {
 
   const handleShare = async () => {
     try {
-      // 현재 페이지 URL을 클립보드에 복사
       await navigator.clipboard.writeText(window.location.href);
       setShowToast(true);
 
-      // 3초 후 토스트 숨김
       setTimeout(() => setShowToast(false), 3000);
     } catch (err) {
       console.error('링크 복사 실패:', err);

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '@/components';
+import { CustomToast } from '@/components/CustomToast/CustomToast';
 import eyeOff from '@/assets/icons/password/btn_visibility_off.png';
 import eyeOn from '@/assets/icons/password/btn_visibility_on.png';
 import styles from './EditStudyModal.module.css';
-import { CustomToast } from '@/components/CustomToast/CustomToast';
 
 export default function EditStudyBtn({
   buttonText,
@@ -46,6 +46,7 @@ export default function EditStudyBtn({
       <button className={btnClassName} onClick={handleOpen}>
         {buttonText}
       </button>
+
       <Modal
         isOpen={isOpen}
         onClose={handleClose}
@@ -60,7 +61,9 @@ export default function EditStudyBtn({
           <button className={styles.exitBtn} onClick={handleClose}>
             나가기
           </button>
+
           <p className={styles.description}>권한이 필요해요!</p>
+
           <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="edit-Pw">
               비밀번호
@@ -82,6 +85,7 @@ export default function EditStudyBtn({
           </div>
         </div>
       </Modal>
+
       {showToast && (
         <CustomToast
           show={showToast}

@@ -29,7 +29,6 @@ export default function Modal({
           >
             {buttonText}
           </button>
-          {/* 화면이 max-width: 743px일 때 나타남 */}
           <button
             onClick={onClose}
             className={`${styles.editCloseBtn} ${styles.mobileCloseBtn}`}
