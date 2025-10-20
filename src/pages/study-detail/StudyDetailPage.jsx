@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import { Container } from '@/components';
@@ -12,7 +13,11 @@ import {
 import { mockData } from '@/data/mock-data';
 
 export default function StudyDetailPage() {
-  const [data, setData] = useState(mockData);
+  // const [data, setData] = useState(mockData);
+  const { id } = useParams();
+  const [data, setData] = useState(
+    mockData.find((item) => item.id === id) || null,
+  );
   const navigate = useNavigate();
 
   const handleDelete = () => {

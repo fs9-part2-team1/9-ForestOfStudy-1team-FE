@@ -1,0 +1,151 @@
+.title {
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 1.875rem;
+  min-height: auto;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.searchBarWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.searchIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  position: absolute;
+  left: 20px;
+}
+
+.searchBarInput {
+  width: 20.9375rem;
+  height: 2.625rem;
+  border-radius: 15px;
+  gap: 10px;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--border-line);
+  background: var(--font-gray: );
+  font-weight: 400;
+  font-style: Regular;
+  text-indent: 28px;
+}
+
+.select {
+  width: 11.25rem;
+  height: 2.625rem;
+  border-radius: 15px;
+  gap: 10px;
+  padding: 0.5625rem 1.25rem;
+  border: 1px solid var(--border-line);
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  color: var(--font-gray);
+}
+
+.options {
+  width: 180;
+  height: 42;
+  angle: 0 deg;
+  opacity: 1;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border: 1px solid var(--border-line);
+}
+
+.options {
+  height: 10.5rem;
+}
+
+.studyCardSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 24px;
+  margin: 0 auto;
+  border-radius: 20px;
+  margin-bottom: 3rem;
+}
+
+.moreBtnWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreStudyBtn {
+  width: 280px;
+  height: 53px;
+  /* margin: 16px 0;
+  padding: 17px; */
+  border: 1px solid var(--border-line);
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-green);
+  cursor: pointer;
+  line-height: 100%;
+  text-align: center;
+  background: #ffffff;
+}
+
+@media (min-width: 1024px) {
+  .studyCardClassName {
+    width: 22.375rem;
+    height: 15.1875rem;
+  }
+}
+
+@media (min-width: 744px) and (max-width: 1023px) {
+  .containerClassName {
+    padding: 2.25rem;
+  }
+  .studyCardSection {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .studyCardClassName {
+    width: 19.5rem;
+    height: 15.1875rem;
+  }
+}
+@media (max-width: 743px) {
+  .containerClassName {
+    padding: 1.5rem;
+    min-width: 21.5rem;
+  }
+
+  .studyCardClassName {
+    width: 15rem;
+    height: 11.25rem;
+  }
+
+  .studyCardSection {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .searchBarInput {
+    width: 100%;
+  }
+}
