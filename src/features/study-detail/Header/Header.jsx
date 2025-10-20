@@ -1,11 +1,11 @@
 import EmojiPicker from 'emoji-picker-react';
 import { useState } from 'react';
 import { EmojiCard } from '@/components';
+import { EditStudyModal } from '..';
+import { CustomToast } from '@/components/CustomToast/CustomToast';
 import plus_white from '@/assets/icons/common/ic_plus_white.png';
 import icon_smile from '@/assets/icons/common/ic_smile.png';
 import styles from './Header.module.css';
-import { EditStudyModal } from '..';
-import { CustomToast } from '@/components/CustomToast/CustomToast';
 
 export default function Header({ data, onDelete }) {
   const { reactions: initialReactions, nickname, title, password } = data;
