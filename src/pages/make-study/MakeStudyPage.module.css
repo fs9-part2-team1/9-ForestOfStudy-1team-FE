@@ -175,3 +175,10 @@
 .nonDisplay {
   display: none;
 }
+
+/* 모바일 웹 */
+@media (max-width: 743) {
+  .appContainer {
+    width: 344px;
+  }
+}
