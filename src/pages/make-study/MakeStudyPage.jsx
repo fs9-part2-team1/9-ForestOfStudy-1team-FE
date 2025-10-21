@@ -248,8 +248,10 @@ export default function MakeStudyPage() {
     const isValidateTitle = checkValidateTitle(title);
     const isValidateNickname = checkValidateNickname(nickname);
     const isValidatePassword = checkValidatePassword(password);
-    const isValidatePasswordConfirm =
-      checkValidatePasswordConfirm(passwordConfirm);
+    const isValidatePasswordConfirm = checkValidatePasswordConfirm(
+      password,
+      passwordConfirm,
+    );
 
     if (
       isValidateTitle &&
