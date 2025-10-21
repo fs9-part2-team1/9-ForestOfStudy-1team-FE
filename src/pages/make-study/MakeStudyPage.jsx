@@ -25,7 +25,7 @@ import deskImage from '@/assets/images/background/img_desk.jpg';
 import plantImage from '@/assets/images/background/img_plant.jpg';
 import wallImage from '@/assets/images/background/img_wall.jpg';
 import windowImage from '@/assets/images/background/img_window.jpg';
-import mockItems from '../home/api-data/mock-data-sh.js';
+import mockItems from '@/data/mock-study-list';
 
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';

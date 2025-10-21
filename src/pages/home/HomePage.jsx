@@ -1,12 +1,14 @@
 import MainLayout from '@/layouts/MainLayout';
-import RecentStudySection from './RecentStudySection.jsx';
-import AllStudySection from './AllStudySection.jsx';
+import { RecentStudy, StudyContents } from '@/features/home';
+import { mockData } from '@/data/mock-data';
 
 export default function HomePage() {
+  const data = mockData;
+
   return (
     <MainLayout>
-      {/* <RecentStudySection /> */}
-      <AllStudySection />
+      <RecentStudy data={data} />
+      <StudyContents data={data} />
     </MainLayout>
   );
 }

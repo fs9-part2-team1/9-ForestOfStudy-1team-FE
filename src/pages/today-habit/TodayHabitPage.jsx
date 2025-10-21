@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./TodayHabitPage.module.css";
-import MainLayout from "@/layouts/MainLayout";
-import Modal from "@/components/Modal/Modal";
-import { mockData } from "@/data/mock-data";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from './TodayHabitPage.module.css';
+import MainLayout from '@/layouts/MainLayout';
+import Modal from '@/components/Modal/Modal';
+import { mockData } from '@/data/mock-data';
 
-import trashIcon from "@/assets/icons/common/ic_trash.png";
-import arrowRightIcon from "@/assets/icons/common/ic_arrow_right.png";
+import trashIcon from '@/assets/icons/common/ic_trash.png';
+import arrowRightIcon from '@/assets/icons/common/ic_arrow_right.png';
 
 export default function TodayHabitPage() {
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split('T')[0];
   const [habitDate, setHabitDate] = useState({
-    [today]: mockData.habits.map((habit) => ({ ...habit, completed: false })),
+    [today]: mockData[0].habits.map((habit) => ({
+      ...habit,
+      completed: false,
+    })),
   });
-  const [currentTime, setCurrentTime] = useState("");
+  const [currentTime, setCurrentTime] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -21,16 +24,16 @@ export default function TodayHabitPage() {
     const updateTime = () => {
       const now = new Date();
       const date = now
-        .toLocaleDateString("ko-KR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
+        .toLocaleDateString('ko-KR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
         })
-        .replaceAll(". ", "-")
-        .replace(".", "");
-      const time = now.toLocaleTimeString("ko-KR", {
-        hour: "2-digit",
-        minute: "2-digit",
+        .replaceAll('. ', '-')
+        .replace('.', '');
+      const time = now.toLocaleTimeString('ko-KR', {
+        hour: '2-digit',
+        minute: '2-digit',
       });
       setCurrentTime(`${date} ${time}`);
     };
@@ -45,14 +48,14 @@ export default function TodayHabitPage() {
     ...new Map(
       Object.values(habitDate)
         .flat()
-        .map((item) => [item.id, item])
+        .map((item) => [item.id, item]),
     ).values(),
   ];
 
   const addHabit = () => {
     const newHabit = {
       id: Date.now(),
-      name: "새로운 습관",
+      name: '새로운 습관',
       week: Array(7).fill(true),
       completed: false,
     };
@@ -71,7 +74,7 @@ export default function TodayHabitPage() {
   const toggleHabit = (id) => {
     const todayHabits = habitDate[today] || [];
     const updatedTodayHabits = todayHabits.map((h) =>
-      h.id === id ? { ...h, completed: !h.completed } : h
+      h.id === id ? { ...h, completed: !h.completed } : h,
     );
     setHabitDate({ ...habitDate, [today]: updatedTodayHabits });
   };
@@ -80,14 +83,14 @@ export default function TodayHabitPage() {
     const newHabitDate = { ...habitDate };
     for (const date in newHabitDate) {
       newHabitDate[date] = newHabitDate[date].map((h) =>
-        h.id === id ? { ...h, name: value } : h
+        h.id === id ? { ...h, name: value } : h,
       );
     }
     setHabitDate(newHabitDate);
   };
 
-  const goToFocusPage = () => navigate("/today-focus");
-  const goToHomePage = () => navigate("/");
+  const goToFocusPage = () => navigate('/today-focus');
+  const goToHomePage = () => navigate('/');
 
   return (
     <MainLayout disabled={true}>
@@ -100,11 +103,19 @@ export default function TodayHabitPage() {
             <div className={styles.headerBtns}>
               <button className={styles.whiteBtn} onClick={goToFocusPage}>
                 오늘의 집중
-                <img src={arrowRightIcon} alt="화살표" className={styles.arrowIcon} />
+                <img
+                  src={arrowRightIcon}
+                  alt="화살표"
+                  className={styles.arrowIcon}
+                />
               </button>
               <button className={styles.whiteBtn} onClick={goToHomePage}>
                 홈
-                <img src={arrowRightIcon} alt="화살표" className={styles.arrowIcon} />
+                <img
+                  src={arrowRightIcon}
+                  alt="화살표"
+                  className={styles.arrowIcon}
+                />
               </button>
             </div>
             <div className={styles.timeWrapper}>
@@ -135,11 +146,11 @@ export default function TodayHabitPage() {
                   <li
                     key={habit.id}
                     className={`${styles.habitItem} ${
-                      habit.completed ? styles.done : ""
+                      habit.completed ? styles.done : ''
                     }`}
                     onClick={() => toggleHabit(habit.id)}
                   >
-                    {habit.name || "새 습관"}
+                    {habit.name || '새 습관'}
                   </li>
                 ))}
               </ul>
@@ -150,11 +161,7 @@ export default function TodayHabitPage() {
 
       {isModalOpen && (
         <div className={styles.modalWrapper}>
-          <Modal
-           isOpen={isModalOpen}
-  title="습관 목록"
-  
->
+          <Modal isOpen={isModalOpen} title="습관 목록">
             <div className={styles.habitModal}>
               <ul className={styles.habitEditList}>
                 {allUniqueHabits.map((habit) => (
@@ -163,7 +170,9 @@ export default function TodayHabitPage() {
                       <input
                         type="text"
                         value={habit.name}
-                        onChange={(e) => editHabitName(habit.id, e.target.value)}
+                        onChange={(e) =>
+                          editHabitName(habit.id, e.target.value)
+                        }
                         className={styles.habitInput}
                       />
                     </div>
