@@ -243,16 +243,6 @@ export default function MakeStudyPage() {
     checkTotalValidate();
   };
 
-  /* 임시 비밀번호 확인 클릭 이벤트 함수 */
-  const onClickPasswordConfirm = () => {
-    console.log('onClickPasswordConfirm click');
-  };
-
-  /* 임시 테스트 버튼 클릭 이벤트 함수 */
-  const onClickTestButton = () => {
-    console.log('onClickTestButton');
-  };
-
   /* 모든 입력창 유효성 검사 함수 */
   const checkTotalValidate = () => {
     const isValidateTitle = checkValidateTitle(title);
@@ -317,9 +307,6 @@ export default function MakeStudyPage() {
   return (
     <MainLayout>
       <div className={styles.appContainer}>
-        <button onClick={onClickTestButton} ref={testButtonRef}>
-          Test Button
-        </button>
         <h1 className={styles.title}>스터디 만들기</h1>
         <div className={styles.inputContainer}>
           <div className={styles.inputText}>
@@ -411,7 +398,6 @@ export default function MakeStudyPage() {
                 name="passwordConfirm"
                 onInput={onInputPasswordConfirm}
                 onBlur={onInputPasswordConfirm}
-                onClick={onClickPasswordConfirm}
                 placeholder="비밀번호를 다시 한 번 입력해 주세요"
               />
               <img
