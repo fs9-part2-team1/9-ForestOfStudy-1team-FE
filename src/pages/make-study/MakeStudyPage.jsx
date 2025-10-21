@@ -29,8 +29,9 @@ import mockItems from '../home/api-data/mock-data-sh.js';
 
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import clsx from 'clsx';
 
 /* 배경 이미지 썸네일 리스트 */
 const backgroundList = [
@@ -75,6 +76,8 @@ export default function MakeStudyPage() {
   let [modifyMod, setModifyMod] = useState(false);
   let prevBackgroundElement;
 
+  const passwordConfirmErrMsgRef = useRef(null);
+
   useEffect(() => {
     const tempModifyMod = id !== undefined;
     const study = id ? handleRequestGet(id) : {};
@@ -106,13 +109,13 @@ export default function MakeStudyPage() {
   };
 
   /* 스터디 제목 입련란 유효성 검사 */
-  const checkValidateTitle = () => {
-    return title ? true : false;
+  const checkValidateTitle = (paramTitle) => {
+    return paramTitle ? true : false;
   };
 
   /* 닉네임 입력란 유효성 검사 */
-  const checkValidateNickname = (evet) => {
-    return nickname ? true : false;
+  const checkValidateNickname = (paramNickname) => {
+    return paramNickname ? true : false;
   };
 
   /* 비밀번호 입력란 유효성 검사 */
@@ -122,18 +125,23 @@ export default function MakeStudyPage() {
   };
 
   /* 비밀번호 확인 입력란 유효성 검사 */
-  const checkValidatePasswordConfirm = (paramPasswordConfirm) => {
+  const checkValidatePasswordConfirm = (
+    paramPassword,
+    paramPasswordConfirm,
+  ) => {
     return (
-      paramPasswordConfirm?.length !== 0 && password === paramPasswordConfirm
+      paramPasswordConfirm?.length !== 0 &&
+      paramPassword === paramPasswordConfirm
     );
   };
 
   /* 닉네임 입력란 이벤트 핸들 */
   const onInputNickname = (event) => {
     const err = event.currentTarget.nextElementSibling;
-    setNickname(event.currentTarget.value);
+    const tempNickname = event.currentTarget.value;
+    setNickname(tempNickname);
 
-    const isValidate = checkValidateNickname();
+    const isValidate = checkValidateNickname(tempNickname);
 
     err.className = isValidate
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
@@ -143,9 +151,11 @@ export default function MakeStudyPage() {
   /* 스터디 제목 입력란 이벤트 핸들 */
   const onInputTitle = (event) => {
     const err = event.currentTarget.nextElementSibling;
-    setTitle(event.currentTarget.value);
+    const tempTitle = event.currentTarget.value;
 
-    const isValidate = checkValidateTitle();
+    setTitle(tempTitle);
+
+    const isValidate = checkValidateTitle(tempTitle);
 
     err.className = isValidate
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
@@ -155,19 +165,16 @@ export default function MakeStudyPage() {
   /* 비밀번호 입력란 이벤트 핸들 */
   const onInputPassword = (event) => {
     const err = event.currentTarget.parentElement.nextElementSibling;
+    const tempPassword = event.currentTarget.value;
+    const isValidate = checkValidatePassword(tempPassword);
+    const isValidatePasswordConfirm = checkValidatePasswordConfirm(
+      tempPassword,
+      passwordConfirm,
+    );
 
-    setPassword(event.currentTarget.value);
-    const isValidate = checkValidatePassword(event.currentTarget.value);
+    setPassword(tempPassword);
 
-    // 비밀번호 확인 입력란 강제 이벤트 발생 후 유효성 체크하는 기능 추 후에 구현 예정
-    const isValidatePasswordConfirm =
-      checkValidatePasswordConfirm(passwordConfirm);
-    const passwordConfirmInputElement =
-      event.currentTarget.parentElement.parentElement.nextElementSibling
-        .firstElementChild.nextElementSibling.firstElementChild;
-
-    // console.log('passwordConfirmInputElement : ', passwordConfirmInputElement);
-
+    // 비밀번호 입력란 에러 메시지 토글
     err.className = isValidate
       ? `${styles.inputErrMessage} ${styles.nonDisplay}`
       : `${styles.inputErrMessage}`;
@@ -177,17 +184,27 @@ export default function MakeStudyPage() {
         ? '비밀번호를 입력해 주세요'
         : '비밀번호를 8자 이상 입력해주세요';
 
-    // passwordConfirmInputElement.dispatchEvent(new CustomEvent('input'));
+    // 비밀번호 입력 확인란 에러 메시지
+    passwordConfirmErrMsgRef.current.innerText = passwordConfirm
+      ? '비밀번호가 일치하지 않습니다'
+      : '비밀번호 확인을 입력해 주세요';
+
+    passwordConfirmErrMsgRef.current.className = isValidatePasswordConfirm
+      ? `${styles.inputErrMessage} ${styles.nonDisplay}`
+      : `${styles.inputErrMessage}`;
   };
 
   /* 비밀번호 확인 입력란 이벤트 핸들 */
   const onInputPasswordConfirm = (event) => {
     const err = event.currentTarget.parentElement.nextElementSibling;
     const tempPasswordConfirm = event.currentTarget.value;
+    const isValidate = checkValidatePasswordConfirm(
+      password,
+      tempPasswordConfirm,
+    );
+
     setPasswordConfirm(tempPasswordConfirm);
 
-    const isValidate = checkValidatePasswordConfirm(tempPasswordConfirm);
-    console.log('checkValidatePasswordConfirm -> ');
     err.innerText = tempPasswordConfirm
       ? '비밀번호가 일치하지 않습니다'
       : '비밀번호 확인을 입력해 주세요';
@@ -226,10 +243,20 @@ export default function MakeStudyPage() {
     checkTotalValidate();
   };
 
+  /* 임시 비밀번호 확인 클릭 이벤트 함수 */
+  const onClickPasswordConfirm = () => {
+    console.log('onClickPasswordConfirm click');
+  };
+
+  /* 임시 테스트 버튼 클릭 이벤트 함수 */
+  const onClickTestButton = () => {
+    console.log('onClickTestButton');
+  };
+
   /* 모든 입력창 유효성 검사 함수 */
   const checkTotalValidate = () => {
-    const isValidateTitle = checkValidateTitle();
-    const isValidateNickname = checkValidateNickname();
+    const isValidateTitle = checkValidateTitle(title);
+    const isValidateNickname = checkValidateNickname(nickname);
     const isValidatePassword = checkValidatePassword(password);
     const isValidatePasswordConfirm =
       checkValidatePasswordConfirm(passwordConfirm);
@@ -290,6 +317,9 @@ export default function MakeStudyPage() {
   return (
     <MainLayout>
       <div className={styles.appContainer}>
+        <button onClick={onClickTestButton} ref={testButtonRef}>
+          Test Button
+        </button>
         <h1 className={styles.title}>스터디 만들기</h1>
         <div className={styles.inputContainer}>
           <div className={styles.inputText}>
@@ -381,6 +411,7 @@ export default function MakeStudyPage() {
                 name="passwordConfirm"
                 onInput={onInputPasswordConfirm}
                 onBlur={onInputPasswordConfirm}
+                onClick={onClickPasswordConfirm}
                 placeholder="비밀번호를 다시 한 번 입력해 주세요"
               />
               <img
@@ -389,7 +420,10 @@ export default function MakeStudyPage() {
                 onClick={(event) => passwordVisibleToggle(event)}
               />
             </div>
-            <span className={`${styles.inputErrMessage} ${styles.nonDisplay}`}>
+            <span
+              className={`${styles.inputErrMessage} ${styles.nonDisplay}`}
+              ref={passwordConfirmErrMsgRef}
+            >
               * 비밀번호가 일치하지 않습니다
             </span>
           </div>
