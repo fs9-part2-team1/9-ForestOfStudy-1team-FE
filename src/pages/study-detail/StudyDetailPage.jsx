@@ -12,7 +12,7 @@ import {
 import { mockData } from '@/data/mock-data';
 
 export default function StudyDetailPage() {
-  const [data, setData] = useState(mockData);
+  const [data, setData] = useState(mockData[0]);
   const navigate = useNavigate();
 
   const handleDelete = () => {

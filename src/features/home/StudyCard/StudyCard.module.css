@@ -1,0 +1,239 @@
+.studyCard {
+  width: 22.375rem;
+  height: 15.1875rem;
+  border-radius: 1.25rem;
+  border: 1px solid #0000001a;
+  padding: 1.875rem;
+  position: relative;
+  background-color: var(--card--green);
+  position: relative;
+}
+
+.topContents {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 1.375rem;
+}
+
+.title {
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 1.125rem;
+}
+
+.calculateDays {
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 0.875rem;
+  color: var(--font-gray);
+  margin-bottom: 1.875rem;
+}
+
+.description {
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.getPoint {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 5.375rem;
+  height: 1.375rem;
+  gap: 0.5rem;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.pointBox {
+  display: flex;
+  padding: 0.1875rem 0.3125rem;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--font-black);
+  font-weight: 500;
+  border-radius: 3.125rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.leaf {
+  display: flex;
+  width: 0.875rem;
+  height: 0.875rem;
+  padding: 0.226px 1.336px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardClassName {
+  width: 3rem;
+  height: 1.625rem;
+  padding: 0.375rem 0.5rem;
+}
+
+.emojiClassName {
+  height: 100%;
+}
+
+.countClassName {
+  height: 100%;
+}
+
+.emojiGap {
+  display: flex;
+  gap: 0.3125rem;
+  position: absolute;
+  bottom: 1.875rem;
+}
+
+.emojiBoxClassName {
+  display: flex;
+  gap: 0.3125rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.emojiClassName {
+  width: 0.75rem;
+  height: 0.75rem;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.countClassName {
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .studyCard {
+    width: 22.375rem;
+    height: 15.1875rem;
+  }
+}
+
+@media (min-width: 744px) and (max-width: 1023px) {
+  .studyCard {
+    width: 19.5rem;
+    height: 15.1875rem;
+  }
+
+  .topContents {
+    margin-bottom: 5px;
+    display: flex;
+    text-align: center;
+  }
+
+  .calculateDays {
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 0.875rem;
+    color: var(--font-gray);
+    margin-bottom: 1.875rem;
+  }
+
+  .description {
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    /* margin-bottom: 3.375rem; */
+  }
+
+  .getPoint {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 5.375rem;
+    height: 1.375rem;
+    gap: 0.5rem;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .pointBox {
+    display: flex;
+    padding: 0.1875rem 0.3125rem;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--font-black);
+    font-weight: 500;
+    border-radius: 3.125rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    font-size: 0.75rem;
+  }
+
+  .leaf {
+    display: flex;
+    width: 0.875rem;
+    height: 0.875rem;
+    padding: 0.226px 1.336px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 743px) {
+  .studyCard {
+    width: 19.5rem;
+    height: 11.25rem;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .topContents {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .calculateDays {
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 0.75rem;
+    color: var(--font-gray);
+    margin-bottom: 0.75rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+    line-height: 100%;
+  }
+
+  .cardClassName {
+    width: 3rem;
+    height: 1.625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .emojiGap {
+    display: flex;
+    position: absolute;
+    bottom: 16px;
+  }
+}
