@@ -90,7 +90,7 @@ export default function TodayHabitPage() {
   };
 
   const goToFocusPage = () => navigate('/today-focus');
-  const goToHomePage = () => navigate('/');
+  const goToHomePage = () => navigate('/study-detail');
 
   return (
     <MainLayout disabled={true}>
