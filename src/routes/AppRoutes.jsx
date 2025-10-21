@@ -9,7 +9,10 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/make-study" element={<MakeStudyPage />} />
+      <Route path="/make-study" element={<MakeStudyPage />}>
+        <Route index element={<MakeStudyPage />} />
+        <Route path=":id" element={<MakeStudyPage />} />
+      </Route>
       <Route path="/study-detail" element={<StudyDetailPage />} />
       <Route path="/today-focus" element={<TodayFocusPage />} />
       <Route path="/today-habit" element={<TodayHabitPage />} />

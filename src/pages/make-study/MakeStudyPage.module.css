@@ -175,3 +175,53 @@
 .nonDisplay {
   display: none;
 }
+
+/* 모바일 웹 */
+@media (max-width: 743px) {
+  .appContainer {
+    width: 343px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .backgroundList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .inputText {
+    display: flex;
+    flex-direction: column;
+
+    & label {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    & input {
+      font-size: 14px;
+    }
+  }
+
+  .textArea {
+    & label {
+      font-size: 16px;
+    }
+
+    & textArea {
+      font-size: 14px;
+    }
+  }
+
+  .inputPassword {
+    & label {
+      font-size: 16px;
+    }
+    & input {
+      font-size: 14px;
+    }
+  }
+}
