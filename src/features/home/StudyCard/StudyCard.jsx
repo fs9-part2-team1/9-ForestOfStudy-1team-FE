@@ -1,6 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+import { EmojiCard } from '@/components';
 import leaf from '@/assets/icons/common/ic_leaf.png';
 import styles from './StudyCard.module.css';
-import { EmojiCard } from '@/components';
 
 function daysSinceCreated(date) {
   const createdDate = new Date(date);
@@ -10,7 +11,7 @@ function daysSinceCreated(date) {
   return diffDays;
 }
 
-export default function StudyCard({ data, studyCardClassName, onClick }) {
+export default function StudyCard({ data, studyCardClassName }) {
   const {
     nickname,
     title,
@@ -23,10 +24,20 @@ export default function StudyCard({ data, studyCardClassName, onClick }) {
   const MAX_VISIBLE = 3;
   const visibleEmojis = reactions?.slice(0, MAX_VISIBLE);
 
+  const navigate = useNavigate();
+  const handleClick = () => {
+    // 로컬스토리지에 최근 조회 기록 업데이트
+    const stored = JSON.parse(localStorage.getItem('recentStudies')) || [];
+    const filtered = stored.filter((item) => item.id !== data.id);
+    const updated = [data, ...filtered].slice(0, 3);
+    localStorage.setItem('recentStudies', JSON.stringify(updated));
+    navigate(`/study-detail/${data.id}`);
+  };
+
   return (
     <article
       className={`${styles.studyCard} ${studyCardClassName}`}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <header className={styles.contents}>
         <section className={styles.topContents}>
@@ -63,4 +74,3 @@ export default function StudyCard({ data, studyCardClassName, onClick }) {
     </article>
   );
 }
-//48-26/ 56-31

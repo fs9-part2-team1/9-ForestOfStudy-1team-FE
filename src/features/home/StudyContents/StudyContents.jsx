@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Container } from '@/components';
 import { StudyCard } from '..';
 import searchIcon from '@/assets/icons/common/ic_search.png';
@@ -21,12 +20,6 @@ export default function StudyContents({ data }) {
     { value: 'highest', label: '많은 포인트 순' },
     { value: 'lowest', label: '적은 포인트 순' },
   ];
-
-  const navigate = useNavigate();
-
-  const handleCardClick = (studyId) => {
-    navigate(`/study/${studyId}`);
-  };
 
   const handleKeywordChange = (event) => {
     setKeyword(event.target.value);
@@ -94,12 +87,14 @@ export default function StudyContents({ data }) {
             onKeyDown={handleKeyDown}
           />
         </div>
-        <CustomSelect
-          value={orderBy}
-          onChange={setOrderBy}
-          optionList={sortOptionList}
-          resetCount={() => setVisibleCount(ITEMS_LIMIT)}
-        />
+        <div className={styles.selectGroup}>
+          <CustomSelect
+            value={orderBy}
+            onChange={setOrderBy}
+            optionList={sortOptionList}
+            resetCount={() => setVisibleCount(ITEMS_LIMIT)}
+          />
+        </div>
       </div>
 
       <div className={styles.studyCardSection}>
@@ -108,7 +103,6 @@ export default function StudyContents({ data }) {
             key={data.id}
             data={data}
             studyCardClassName={styles.studyCardClassName}
-            onClick={() => handleCardClick(data.id)}
           />
         ))}
       </div>
