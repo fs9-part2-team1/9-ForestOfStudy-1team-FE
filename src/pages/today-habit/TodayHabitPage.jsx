@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './TodayHabitPage.module.css';
 import MainLayout from '@/layouts/MainLayout';
 import Modal from '@/components/Modal/Modal';
@@ -7,18 +7,24 @@ import { mockData } from '@/data/mock-data';
 
 import trashIcon from '@/assets/icons/common/ic_trash.png';
 import arrowRightIcon from '@/assets/icons/common/ic_arrow_right.png';
+import { Container } from '@/components';
 
 export default function TodayHabitPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const study = mockData.find((d) => d.id === id);
+
   const today = new Date().toISOString().split('T')[0];
-  const [habitDate, setHabitDate] = useState({
-    [today]: mockData[0].habits.map((habit) => ({
-      ...habit,
-      completed: false,
-    })),
-  });
+
   const [currentTime, setCurrentTime] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
+
+  const [habitDate, setHabitDate] = useState({
+    [today]: study?.habits?.map((habit) => ({
+      ...habit,
+      habitRecord: habit.habitRecord || [],
+    })),
+  });
 
   useEffect(() => {
     const updateTime = () => {
@@ -42,6 +48,16 @@ export default function TodayHabitPage() {
     return () => clearInterval(timer);
   }, []);
 
+  if (!study) {
+    return (
+      <MainLayout>
+        <Container disabled>
+          <p>해당 스터디를 찾을 수 없습니다.</p>
+        </Container>
+      </MainLayout>
+    );
+  }
+
   const habits = habitDate[today] || [];
 
   const allUniqueHabits = [
@@ -54,10 +70,9 @@ export default function TodayHabitPage() {
 
   const addHabit = () => {
     const newHabit = {
-      id: Date.now(),
+      id: Date.now().toString(),
       name: '새로운 습관',
-      week: Array(7).fill(true),
-      completed: false,
+      habitRecord: [{ recordDate: today + 'T00:00:00.000Z', done: false }],
     };
     const todayHabits = habitDate[today] || [];
     setHabitDate({ ...habitDate, [today]: [...todayHabits, newHabit] });
@@ -73,9 +88,20 @@ export default function TodayHabitPage() {
 
   const toggleHabit = (id) => {
     const todayHabits = habitDate[today] || [];
-    const updatedTodayHabits = todayHabits.map((h) =>
-      h.id === id ? { ...h, completed: !h.completed } : h,
-    );
+    const updatedTodayHabits = todayHabits.map((h) => {
+      if (h.id === id) {
+        const record = h.habitRecord.find((r) =>
+          r.recordDate.startsWith(today),
+        );
+        if (record) record.done = !record.done;
+        else
+          h.habitRecord.push({
+            recordDate: today + 'T00:00:00.000Z',
+            done: true,
+          });
+      }
+      return h;
+    });
     setHabitDate({ ...habitDate, [today]: updatedTodayHabits });
   };
 
@@ -90,7 +116,7 @@ export default function TodayHabitPage() {
   };
 
   const goToFocusPage = () => navigate('/today-focus');
-  const goToHomePage = () => navigate('/study-detail');
+  const goToHomePage = () => navigate(`/study-detail/${id}`);
 
   return (
     <MainLayout disabled={true}>
@@ -98,7 +124,9 @@ export default function TodayHabitPage() {
         <div className={styles.container}>
           <div className={styles.header}>
             <div className={styles.headerContent}>
-              <h2 className={styles.title}>연우의 개발공장</h2>
+              <h2 className={styles.title}>
+                {study.nickname}의 {study.title}
+              </h2>
             </div>
             <div className={styles.headerBtns}>
               <button className={styles.whiteBtn} onClick={goToFocusPage}>
@@ -134,6 +162,7 @@ export default function TodayHabitPage() {
                 목록 수정
               </button>
             </div>
+
             {habits.length === 0 ? (
               <p className={styles.empty}>
                 습관이 없어요
@@ -146,7 +175,11 @@ export default function TodayHabitPage() {
                   <li
                     key={habit.id}
                     className={`${styles.habitItem} ${
-                      habit.completed ? styles.done : ''
+                      habit.habitRecord.find((r) =>
+                        r.recordDate.startsWith(today),
+                      )?.done
+                        ? styles.done
+                        : ''
                     }`}
                     onClick={() => toggleHabit(habit.id)}
                   >
