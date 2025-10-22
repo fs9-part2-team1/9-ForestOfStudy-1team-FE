@@ -121,6 +121,7 @@
     height: 15.1875rem;
   }
 }
+
 @media (max-width: 743px) {
   .containerClassName {
     padding: 1.5rem;
@@ -137,15 +138,27 @@
   }
 
   .header {
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    width: 100%;
     gap: 1rem;
   }
 
   .searchBarInput {
     width: 100%;
+  }
+
+  .searchBarWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items:;
+  }
+
+  .searchIcon {
+    width: 1.125rem;
+    height: 1.125rem;
+    position: absolute;
+    left: 20px;
   }
 }

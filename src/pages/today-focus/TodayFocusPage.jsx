@@ -14,7 +14,7 @@ export default function TodayFocusPage() {
   const navigate = useNavigate();
 
   const goToHabit = () => navigate('/today-habit');
-  const goToHome = () => navigate('/');
+  const goToHome = () => navigate('/study-detail');
 
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
