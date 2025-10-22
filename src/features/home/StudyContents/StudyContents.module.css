@@ -41,6 +41,12 @@
   text-indent: 28px;
 }
 
+.selectGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
 .select {
   width: 11.25rem;
   height: 2.625rem;
@@ -123,6 +129,10 @@
 }
 
 @media (max-width: 743px) {
+  .title {
+    font-size: 1rem;
+  }
+
   .containerClassName {
     padding: 1.5rem;
     min-width: 21.5rem;

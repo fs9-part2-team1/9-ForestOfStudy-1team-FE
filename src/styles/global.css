@@ -52,6 +52,7 @@ body {
   background-color: var(--primary-bg-green);
   color: var(--font-black);
   line-height: 100%;
+  overflow-x: hidden;
 }
 
 button,

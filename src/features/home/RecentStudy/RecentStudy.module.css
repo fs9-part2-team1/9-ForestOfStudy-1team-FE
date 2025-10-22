@@ -1,12 +1,23 @@
 .title {
   font-weight: 800;
   font-size: 1.5rem;
-  margin-bottom: 1.875rem;
   width: 100%;
 }
 
 .container {
-  height: 23.875rem;
+  display: flex;
+  height: 382p;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.studyCardSection {
+  display: flex;
+  height: 15.1875rem;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-shrink: 0;
 }
 
 .noDataScript {
@@ -32,5 +43,8 @@
     /* margin: 1.25rem 1rem; */
     min-height: auto;
     min-width: 21.5rem;
+  }
+  .title {
+    font-size: 1rem;
   }
 }
