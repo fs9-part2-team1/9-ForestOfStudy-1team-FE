@@ -23,8 +23,8 @@
   margin-bottom: 40px;
   gap: 0 20px;
   grid-template-areas:
-    "content buttons"
-    "time    .";
+    'content buttons'
+    'time    .';
 }
 
 .headerContent {
@@ -60,34 +60,35 @@
 .time {
   display: inline-block;
   background: #fff;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
   font-size: 14px;
   color: #333;
   border: 1px solid #e3e3e3;
-  margin-top:10px ;
+  margin-top: 10px;
+  border-radius: 50px;
 }
 
 .whiteBtn {
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center; 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 15px;
   cursor: pointer;
   color: #818181;
-  padding: 8px 16px; 
-  gap: 8px; 
+  padding: 12px 16px 12px 24px;
+  gap: 8px;
   font-weight: normal;
 }
-
 
 .arrowIcon {
   width: 24px;
   height: 24px;
   margin-left: 8px;
-  filter: invert(55%) sepia(0%) saturate(1%) hue-rotate(200deg) brightness(93%) contrast(84%);
+  filter: invert(55%) sepia(0%) saturate(1%) hue-rotate(200deg) brightness(93%)
+    contrast(84%);
 }
 /* ---------- CARD (최종 확인용 코드) ---------- */
 .card {
@@ -99,10 +100,10 @@
 
 .cardHeader {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   margin-bottom: 24px;
-  position: relative;      
+  position: relative;
 }
 
 .cardHeader h3 {
@@ -118,7 +119,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-margin-left: 75px;
+  margin-left: 75px;
 }
 /* ---------- HABIT LIST ---------- */
 .habitList {
@@ -148,7 +149,6 @@ margin-left: 75px;
   align-items: center;
   justify-content: center;
   position: relative;
-  
 }
 
 .habitItem.done {
@@ -201,7 +201,6 @@ margin-left: 75px;
   height: 54px;
   background-color: #eeeeee;
   border-radius: 20px;
-
 }
 
 .habitInput {
@@ -310,8 +309,9 @@ margin-left: 75px;
 @media (max-width: 1248px) {
   .container {
     width: 100%;
+    padding: 24px;
   }
-}/* Mobile (767px and below) */
+} /* Mobile (767px and below) */
 @media (max-width: 767px) {
   .page {
     padding: 20px;
@@ -326,9 +326,9 @@ margin-left: 75px;
     grid-template-columns: 1fr;
     gap: 16px;
     grid-template-areas:
-      "content"
-      "buttons"
-      "time";
+      'content'
+      'buttons'
+      'time';
   }
 
   .title {
@@ -341,6 +341,7 @@ margin-left: 75px;
 
   .whiteBtn {
     padding: 10px 20px;
+    border-radius: 15px;
   }
 
   .card {
@@ -352,9 +353,9 @@ margin-left: 75px;
     margin-left: 65px;
     text-align: center;
   }
-.linkBtn{
-  margin-left:40px;
-}
+  .linkBtn {
+    margin-left: 40px;
+  }
   .habitList {
     list-style: none;
     margin: 0;

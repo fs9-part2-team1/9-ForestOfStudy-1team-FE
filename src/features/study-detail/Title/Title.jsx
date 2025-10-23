@@ -3,7 +3,12 @@ import right_arrow from '@/assets/icons/common/ic_arrow_right.png';
 import styles from './Title.module.css';
 
 export default function Title({ data }) {
-  const { nickname, title, password } = data;
+  const { nickname, title, password, id } = data;
+
+  // 로컬스토리지에 스터디 ID 저장
+  const saveCurrentStudyId = (studyId) => {
+    localStorage.setItem('currentStudyId', studyId);
+  };
 
   return (
     <div className={styles.Title}>
@@ -28,7 +33,7 @@ export default function Title({ data }) {
           title={title}
           password={password}
           btnClassName={styles.goToPageBtn}
-          redirectTo="/today-habit"
+          redirectTo={`/today-habit/${id}`} // 이동할 경로 전달
         />
 
         <EditStudyModal
@@ -48,6 +53,7 @@ export default function Title({ data }) {
           password={password}
           btnClassName={styles.goToPageBtn}
           redirectTo="/today-focus"
+          onClick={() => saveCurrentStudyId(id)} // 클릭 시 ID 저장
         />
       </div>
     </div>

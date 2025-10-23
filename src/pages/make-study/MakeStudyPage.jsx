@@ -1,17 +1,3 @@
-/**
- *
- *  Mission TeamProject
- *
- *  2025. 10. 13
- *
- *  make-study page
- *
- *  MakeStudyPage.jsx
- *
- *  author: ys
- *
- */
-
 import MainLayout from '@/Layouts/MainLayout';
 import styles from './MakeStudyPage.module.css';
 import bgSelectIcon from '@/assets/icons/common/ic_bg_selected.png';
@@ -31,7 +17,6 @@ import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import clsx from 'clsx';
 
 /* 배경 이미지 썸네일 리스트 */
 const backgroundList = [

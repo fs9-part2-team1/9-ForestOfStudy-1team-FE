@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './TodayHabitPage.module.css';
 import MainLayout from '@/layouts/MainLayout';
 import Modal from '@/components/Modal/Modal';
 import { mockData } from '@/data/mock-data';
-
 import trashIcon from '@/assets/icons/common/ic_trash.png';
 import arrowRightIcon from '@/assets/icons/common/ic_arrow_right.png';
+import { Container } from '@/components';
 
 export default function TodayHabitPage() {
+  // URL에서 ID 가져오고 스터디 선택
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const study = mockData.find((d) => d.id === id);
+
+  // 오늘 날짜 정의
   const today = new Date().toISOString().split('T')[0];
+
+  // 상태 정의
+  const [currentTime, setCurrentTime] = useState(''); // 현재 시간
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열고 닫기
+
+  // 날짜별 습관 상태 저장 {id, name, habitRecord: [{recordDate, done}]}
   const [habitDate, setHabitDate] = useState({
-    [today]: mockData[0].habits.map((habit) => ({
+    [today]: study?.habits?.map((habit) => ({
       ...habit,
-      completed: false,
+      habitRecord: habit.habitRecord || [],
     })),
   });
-  const [currentTime, setCurrentTime] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
 
+  // 현재 시간 업데이트
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -42,27 +52,41 @@ export default function TodayHabitPage() {
     return () => clearInterval(timer);
   }, []);
 
+  // URL에 맞는 스터디가 없는 경우
+  if (!study) {
+    return (
+      <MainLayout>
+        <Container disabled>
+          <p>해당 스터디를 찾을 수 없습니다.</p>
+        </Container>
+      </MainLayout>
+    );
+  }
+
+  // 오늘 습관 배열 (= 오늘의 습관들)
   const habits = habitDate[today] || [];
 
+  // 전체 습관 배열 생성
   const allUniqueHabits = [
     ...new Map(
       Object.values(habitDate)
         .flat()
-        .map((item) => [item.id, item]),
+        .map((habit) => [habit.id, habit]),
     ).values(),
   ];
 
+  // 습관 추가 : 오늘 습관 배열에 새 습관 추가(현재 시간, 체크 유무 저장)
   const addHabit = () => {
     const newHabit = {
-      id: Date.now(),
+      id: Date.now().toString(),
       name: '새로운 습관',
-      week: Array(7).fill(true),
-      completed: false,
+      habitRecord: [{ recordDate: today + 'T00:00:00.000Z', done: false }],
     };
     const todayHabits = habitDate[today] || [];
     setHabitDate({ ...habitDate, [today]: [...todayHabits, newHabit] });
   };
 
+  // 습관 삭제 : 날짜별 모든 습관에서 해당 ID 삭제
   const deleteHabit = (id) => {
     const newHabitDate = { ...habitDate };
     for (const date in newHabitDate) {
@@ -71,14 +95,27 @@ export default function TodayHabitPage() {
     setHabitDate(newHabitDate);
   };
 
+  // 습관 완료 토글 : 오늘 습관 클릭 시 완료/미완료 토글, 오늘 기록이 없으면 새로 생성
   const toggleHabit = (id) => {
     const todayHabits = habitDate[today] || [];
-    const updatedTodayHabits = todayHabits.map((h) =>
-      h.id === id ? { ...h, completed: !h.completed } : h,
-    );
+    const updatedTodayHabits = todayHabits.map((h) => {
+      if (h.id === id) {
+        const record = h.habitRecord.find((r) =>
+          r.recordDate.startsWith(today),
+        );
+        if (record) record.done = !record.done;
+        else
+          h.habitRecord.push({
+            recordDate: today + 'T00:00:00.000Z',
+            done: true,
+          });
+      }
+      return h;
+    });
     setHabitDate({ ...habitDate, [today]: updatedTodayHabits });
   };
 
+  // 습관 이름 수정 : 입력값 변경 시 습관 이름 업데이트
   const editHabitName = (id, value) => {
     const newHabitDate = { ...habitDate };
     for (const date in newHabitDate) {
@@ -89,8 +126,14 @@ export default function TodayHabitPage() {
     setHabitDate(newHabitDate);
   };
 
-  const goToFocusPage = () => navigate('/today-focus');
-  const goToHomePage = () => navigate('/study-detail');
+  // 페이지 이동
+  // 현재 스터디 ID를 브라우저에 저장 -> Focus 페이지에서 사용하기 위함
+  const goToFocusPage = () => {
+    localStorage.setItem('currentStudyId', id);
+    navigate('/today-focus');
+  };
+  // 현재 스터디 ID에 따른 페이지 이동
+  const goToHomePage = () => navigate(`/study-detail/${id}`);
 
   return (
     <MainLayout disabled={true}>
@@ -98,7 +141,9 @@ export default function TodayHabitPage() {
         <div className={styles.container}>
           <div className={styles.header}>
             <div className={styles.headerContent}>
-              <h2 className={styles.title}>연우의 개발공장</h2>
+              <h2 className={styles.title}>
+                {study.nickname}의 {study.title}
+              </h2>
             </div>
             <div className={styles.headerBtns}>
               <button className={styles.whiteBtn} onClick={goToFocusPage}>
@@ -134,6 +179,7 @@ export default function TodayHabitPage() {
                 목록 수정
               </button>
             </div>
+
             {habits.length === 0 ? (
               <p className={styles.empty}>
                 습관이 없어요
@@ -146,7 +192,11 @@ export default function TodayHabitPage() {
                   <li
                     key={habit.id}
                     className={`${styles.habitItem} ${
-                      habit.completed ? styles.done : ''
+                      habit.habitRecord.find((r) =>
+                        r.recordDate.startsWith(today),
+                      )?.done
+                        ? styles.done
+                        : ''
                     }`}
                     onClick={() => toggleHabit(habit.id)}
                   >
@@ -159,6 +209,7 @@ export default function TodayHabitPage() {
         </div>
       </div>
 
+      {/* 습관 관리 모달 */}
       {isModalOpen && (
         <div className={styles.modalWrapper}>
           <Modal isOpen={isModalOpen} title="습관 목록">

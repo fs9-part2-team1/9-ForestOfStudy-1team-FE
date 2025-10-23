@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import { Container } from '@/components';
 import {
@@ -12,15 +12,17 @@ import {
 import { mockData } from '@/data/mock-data';
 
 export default function StudyDetailPage() {
-  const [data, setData] = useState(mockData[0]);
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  const [data, setData] = useState(() => mockData.find((d) => d.id === id));
 
   const handleDelete = () => {
     setData(null);
     navigate('/');
   };
 
-  if (!data) return null; // 데이터가 삭제됐다면 null
+  if (!data) return null;
 
   return (
     <MainLayout disabled>

@@ -13,7 +13,7 @@
   max-width: 1248px;
   background: #fff;
   border-radius: 16px;
-  padding: 48px 56px;
+  padding: 2.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
@@ -44,20 +44,28 @@
 
 .navBtns {
   display: flex;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .navBtn {
-  height: 40px;
-  padding: 6px 16px;
-  border: 1px solid #e4e4e4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 15px;
-  background-color: #fff;
-  color: #666;
-  font-size: 15px;
-  font-weight: 500;
   cursor: pointer;
- 
+  color: #818181;
+  padding: 12px 16px 12px 24px;
+  gap: 8px;
+  font-weight: normal;
+}
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--font-gray);
 }
 
 /* 두 번째 줄: 포인트 */
@@ -153,6 +161,16 @@
   color: #555;
 }
 
+.timeInput {
+  font-size: 2rem;
+  font-weight: bold;
+  width: 300px;
+  text-align: center;
+  border: 1px solid var(--border-line);
+  border-radius: 8px;
+  outline: none;
+}
+
 /* ---------- BUTTONS ---------- */
 .buttonContainer,
 .overtimeButtons {
@@ -180,7 +198,6 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-
 
 .startBtn.running {
   background-color: #818181;
@@ -247,7 +264,6 @@
 .stopBtn img {
   width: 18px;
   height: 18px;
-  
 }
 
 /* ---------- Mobile (max-width: 767px) ---------- */
@@ -270,44 +286,42 @@
     font-weight: 800px;
   }
 
-.navBtns {
-  display: flex;
-  margin-top: 10px;
-}
+  .navBtns {
+    display: flex;
+    margin-top: 10px;
+  }
 
-.navBtn {
-  height: 40px;
-  padding: 6px 16px;
-  border: 1px solid #e4e4e4;
-  border-radius: 15px;
-  background-color: #fff;
-  color: #666;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
- 
-}
+  .navBtn {
+    height: 40px;
+    padding: 6px 16px;
+    border: 1px solid #e4e4e4;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #666;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+  }
   .getPoint {
     align-items: center;
     width: 100%;
     align-items: flex-start;
   }
-.title{
-color: #818181;
-font-size: 16px;
-font-weight: 400;
-margin-top: 10px;
-}
+  .title {
+    color: #818181;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+  }
   .pointBox {
     margin-top: 5px;
     align-items: flex-start;
     font-size: 16px;
     height: 31px;
-   
   }
 
   .timerBox {
-   margin-top: -20px;
+    margin-top: -20px;
     width: 312px;
     height: 342px;
   }
@@ -317,13 +331,12 @@ margin-top: 10px;
   }
 
   .time {
-    font-size:80px;
+    font-size: 80px;
     font-weight: 800;
     justify-content: center;
     align-items: center;
     height: 90px;
-}
-
+  }
 
   .buttonContainer {
     flex-direction: row;
@@ -347,92 +360,85 @@ margin-top: 10px;
     height: 45px !important;
     margin-top: 60px !important;
 
-    flex: none !important; 
-    max-width: 140px !important; 
-    align-self: center !important; 
+    flex: none !important;
+    max-width: 140px !important;
+    align-self: center !important;
   }
 
- 
   .startBtn.running {
-    width: 140px ;
-    height: 45px ;
+    width: 140px;
+    height: 45px;
   }
   /* Stop 버튼 (모바일용) */
-.stopBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background-color: #99c08e !important;
-  color: #fff !important;
-  font-size: 18px !important;
-  font-weight: 700 !important;
+  .stopBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: #99c08e !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
 
-  border: none;
-  border-radius: 40px !important;
-  width: 140px !important;
-  height: 45px !important;
-  margin-top: 60px !important;
+    border: none;
+    border-radius: 40px !important;
+    width: 140px !important;
+    height: 45px !important;
+    margin-top: 60px !important;
 
-  flex: none !important;
-  max-width: 140px !important; 
-  align-self: center !important; 
-  text-align: center;
+    flex: none !important;
+    max-width: 140px !important;
+    align-self: center !important;
+    text-align: center;
+  }
+
+  /* ----------  Stop & Restart 정렬 문제 해결 ---------- */
+  .overtimeButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 0px;
+  }
+
+  /* Stop 버튼 */
+  .stopBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    background-color: #99c08e !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+
+    border: none;
+    border-radius: 40px !important;
+    width: 140px !important;
+    height: 45px !important;
+
+    flex: none !important;
+    max-width: 140px !important;
+    align-self: center !important;
+    text-align: center;
+  }
+
+  /* Restart 버튼 */
+  .restartIconBtn {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50%;
+    background-color: #a5c79a !important;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .restartIconBtn img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+  }
 }
-
-/* ----------  Stop & Restart 정렬 문제 해결 ---------- */
-.overtimeButtons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-top: 0px; 
-}
-
-/* Stop 버튼 */
-.stopBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-
-  background-color: #99c08e !important;
-  color: #fff !important;
-  font-size: 18px !important;
-  font-weight: 700 !important;
-
-  border: none;
-  border-radius: 40px !important;
-  width: 140px !important;
-  height: 45px !important;
-
-  flex: none !important;
-  max-width: 140px !important;
-  align-self: center !important;
-  text-align: center;
-}
-
-/* Restart 버튼 */
-.restartIconBtn {
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: 50%;
-  background-color: #a5c79a !important;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-
-}
-
-.restartIconBtn img {
-  width: 20px;
-  height: 20px;
-  filter: brightness(0) invert(1);
-}
-
-
-
-}
-

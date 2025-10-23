@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+import { EmojiCard } from '@/components';
+import { BACKGROUND } from './BackgroundImg';
 import leaf from '@/assets/icons/common/ic_leaf.png';
 import styles from './StudyCard.module.css';
-import { EmojiCard } from '@/components';
 
 function daysSinceCreated(date) {
   const createdDate = new Date(date);
@@ -10,23 +12,59 @@ function daysSinceCreated(date) {
   return diffDays;
 }
 
-export default function StudyCard({ data, studyCardClassName, onClick }) {
+export default function StudyCard({ data, studyCardClassName }) {
   const {
     nickname,
     title,
     description,
-    points,
+    // points,
     createdAt,
     reactions = [],
+    background,
+    id,
   } = data;
+
+  // 로컬스토리지에서 최신 포인트 가져오기
+  const storedPoints = JSON.parse(localStorage.getItem('studyPoints') || '{}');
+  const pointsToShow = storedPoints[id] ?? data.points;
 
   const MAX_VISIBLE = 3;
   const visibleEmojis = reactions?.slice(0, MAX_VISIBLE);
 
+  // 로컬스토리지에 최근 조회 기록 업데이트
+  const navigate = useNavigate();
+
+  // 스터디 카드 클릭 시 currentStudyId 업데이트
+  const handleClick = () => {
+    const stored = JSON.parse(localStorage.getItem('recentStudies')) || [];
+    const filtered = stored.filter((item) => item.id !== data.id);
+    const updated = [data, ...filtered].slice(0, 3);
+    localStorage.setItem('recentStudies', JSON.stringify(updated));
+
+    // 선택한 스터디 ID 저장
+    localStorage.setItem('currentStudyId', data.id);
+
+    navigate(`/study-detail/${data.id}`);
+  };
+
+  // BACKGROUND에서 색상 또는 이미지 가져오기
+  const backgroundValue = BACKGROUND[background];
+  const isImage = backgroundValue && !backgroundValue.startsWith('#');
+
+  const backgroundStyle = isImage
+    ? {
+        backgroundImage: `url(${backgroundValue})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: '#fff',
+      }
+    : { backgroundColor: backgroundValue };
+
   return (
     <article
-      className={`${styles.studyCard} ${studyCardClassName}`}
-      onClick={onClick}
+      className={`${styles.studyCard} ${studyCardClassName}  ${isImage ? styles.imageCard : ''}`}
+      onClick={handleClick}
+      style={backgroundStyle}
     >
       <header className={styles.contents}>
         <section className={styles.topContents}>
@@ -36,12 +74,16 @@ export default function StudyCard({ data, studyCardClassName, onClick }) {
           <div className={styles.getPoint}>
             <div className={styles.pointBox}>
               <img className={styles.leaf} src={leaf} alt="획득 포인트" />
-              {points}P 획득
+              {pointsToShow}P 획득
             </div>
           </div>
         </section>
         <section className={styles.bottomContents}>
-          <p className={styles.calculateDays}>
+          <p
+            className={`${styles.calculateDays} ${
+              isImage ? styles.whiteText : ''
+            }`}
+          >
             {`${daysSinceCreated(createdAt)}일째 진행 중`}
           </p>
           <p className={styles.description}>{description}</p>
@@ -63,4 +105,3 @@ export default function StudyCard({ data, studyCardClassName, onClick }) {
     </article>
   );
 }
-//48-26/ 56-31

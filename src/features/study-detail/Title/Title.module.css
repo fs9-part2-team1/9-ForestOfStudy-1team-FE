@@ -40,12 +40,6 @@
   width: 1.5rem;
   height: 1.5rem;
 }
-/* 
-@media (min-width: 1920px) {
-  .btnGroup {
-    gap: 1rem;
-  }
-} */
 
 @media (min-width: 744px) and (max-width: 1024px) {
   .btnGroup {
