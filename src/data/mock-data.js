@@ -4,7 +4,7 @@ export const mockData = [
     nickname: '연우',
     title: '개발공장',
     description: 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)',
-    background: 'COLOR_GREEN',
+    background: 'COLOR_ORANGE',
     password: 'abc123',
     points: 310,
     createdAt: '2025-10-10T09:00:00.000Z',
@@ -104,7 +104,7 @@ export const mockData = [
     nickname: '하린',
     title: '디자인 로그북',
     description: '하루 한 번, 영감을 주는 디자인을 기록하기 🎨',
-    background: 'IMAGE_1',
+    background: 'COLOR_GREEN',
     password: 'design123',
     points: 245,
     createdAt: '2025-10-08T08:00:00.000Z',
@@ -112,8 +112,6 @@ export const mockData = [
     reactions: [
       { emoji: '🎨', count: 22 },
       { emoji: '💖', count: 14 },
-      { emoji: '👏', count: 6 },
-      { emoji: '🌈', count: 3 },
     ],
     habits: [
       {
@@ -188,7 +186,7 @@ export const mockData = [
     nickname: '준호',
     title: '헬린이 탈출',
     description: '3개월 안에 어깨 깡패 되기 💪',
-    background: 'COLOR_GREEN',
+    background: 'IMAGE_1',
     password: 'fitlife',
     points: 198,
     createdAt: '2025-10-12T07:00:00.000Z',
@@ -196,7 +194,6 @@ export const mockData = [
     reactions: [
       { emoji: '🔥', count: 40 },
       { emoji: '💪', count: 25 },
-      { emoji: '👏', count: 9 },
     ],
     habits: [
       {
@@ -271,17 +268,12 @@ export const mockData = [
     nickname: '소율',
     title: '감정 일기',
     description: '오늘의 기분을 이모지로 표현하기 😊',
-    background: 'COLOR_BLUE',
+    background: 'COLOR_ORANGE',
     password: 'mood123',
     points: 322,
     createdAt: '2025-10-05T09:00:00.000Z',
     updatedAt: '2025-10-18T09:10:00.000Z',
-    reactions: [
-      { emoji: '😊', count: 15 },
-      { emoji: '😢', count: 3 },
-      { emoji: '😡', count: 2 },
-      { emoji: '🤭', count: 6 },
-    ],
+    reactions: [{ emoji: '😊', count: 15 }],
     habits: [
       {
         id: 'k4x',
@@ -342,7 +334,7 @@ export const mockData = [
     nickname: '민재',
     title: '한입 코딩',
     description: '매일 한 문제씩 알고리즘 풀기 👨‍💻',
-    background: 'COLOR_PINK',
+    background: 'IMAGE_4',
     password: 'algo123',
     points: 220,
     createdAt: '2025-10-01T06:00:00.000Z',
@@ -483,7 +475,7 @@ export const mockData = [
     nickname: '예린',
     title: '감성 사진첩',
     description: '매일 한 장의 사진으로 하루를 기록 📸',
-    background: 'COLOR_GREEN',
+    background: 'COLOR_PINK',
     password: 'photo123',
     points: 276,
     createdAt: '2025-10-03T10:00:00.000Z',
@@ -491,8 +483,6 @@ export const mockData = [
     reactions: [
       { emoji: '📸', count: 20 },
       { emoji: '😍', count: 15 },
-      { emoji: '🌸', count: 7 },
-      { emoji: '💐', count: 5 },
     ],
     habits: [
       {
@@ -554,16 +544,12 @@ export const mockData = [
     nickname: '도윤',
     title: '투자 일지',
     description: '매일 시장 점검 및 종목 분석 📈',
-    background: 'IMAGE_1',
+    background: 'COLOR_BLUE',
     password: 'stock123',
     points: 412,
     createdAt: '2025-10-02T07:00:00.000Z',
     updatedAt: '2025-10-18T08:00:00.000Z',
-    reactions: [
-      { emoji: '💹', count: 18 },
-      { emoji: '💰', count: 12 },
-      { emoji: '🤓', count: 4 },
-    ],
+    reactions: [{ emoji: '💰', count: 12 }],
     habits: [
       {
         id: 'b5q',
@@ -637,7 +623,7 @@ export const mockData = [
     nickname: '지후',
     title: '런데이 챌린지',
     description: '10km 완주를 향한 도전 🏃‍♂️',
-    background: 'COLOR_ORANGE',
+    background: 'COLOR_GREEN',
     password: 'run123',
     points: 180,
     createdAt: '2025-10-11T06:00:00.000Z',
@@ -708,7 +694,7 @@ export const mockData = [
     nickname: '서윤',
     title: '음악과 함께',
     description: '하루 한 곡 추천 🎵',
-    background: 'COLOR_ORANGE',
+    background: 'IMAGE_3',
     password: 'musiclife',
     points: 355,
     createdAt: '2025-10-04T08:00:00.000Z',
