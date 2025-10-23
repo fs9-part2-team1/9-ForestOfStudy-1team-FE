@@ -12,8 +12,7 @@ import {
 import { mockData } from '@/data/mock-data';
 
 export default function StudyDetailPage() {
-  // const [data, setData] = useState(mockData[0]);
-  const { id } = useParams(); //id = 문자열("abc+숫자" 형태)
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [data, setData] = useState(() => mockData.find((d) => d.id === id));
@@ -23,7 +22,7 @@ export default function StudyDetailPage() {
     navigate('/');
   };
 
-  // if (!data) return null; // 데이터가 삭제됐다면 null
+  if (!data) return null;
 
   return (
     <MainLayout disabled>

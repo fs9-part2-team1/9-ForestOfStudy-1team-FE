@@ -2,12 +2,34 @@
   width: 22.375rem;
   height: 15.1875rem;
   border-radius: 1.25rem;
-  border: 1px solid #0000001a;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 1.875rem;
   position: relative;
   background-color: var(--card--green);
-  position: relative;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.imageCard {
+  border: none;
+}
+
+.imageCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(65, 65, 65, 0.5);
+  z-index: 1;
+  border-radius: 12px;
+}
+
+.imageCard > * {
+  position: relative;
+  z-index: 10;
+}
+
+.imageCard .calculateDays {
+  color: #fff;
 }
 
 .topContents {
@@ -15,6 +37,7 @@
   justify-content: space-between;
   align-items: center;
   height: 1.375rem;
+  margin-bottom: 10px;
 }
 
 .title {
@@ -130,7 +153,6 @@
   }
 
   .topContents {
-    margin-bottom: 5px;
     display: flex;
     text-align: center;
   }
@@ -206,7 +228,7 @@
     align-items: flex-start;
     gap: 0.5rem;
     margin-top: 1.25rem;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   .calculateDays {
