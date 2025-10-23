@@ -4,21 +4,24 @@ import styles from './TodayHabitPage.module.css';
 import MainLayout from '@/layouts/MainLayout';
 import Modal from '@/components/Modal/Modal';
 import { mockData } from '@/data/mock-data';
-
 import trashIcon from '@/assets/icons/common/ic_trash.png';
 import arrowRightIcon from '@/assets/icons/common/ic_arrow_right.png';
 import { Container } from '@/components';
 
 export default function TodayHabitPage() {
+  // URL에서 ID 가져오고 스터디 선택
   const { id } = useParams();
   const navigate = useNavigate();
   const study = mockData.find((d) => d.id === id);
 
+  // 오늘 날짜 정의
   const today = new Date().toISOString().split('T')[0];
 
-  const [currentTime, setCurrentTime] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // 상태 정의
+  const [currentTime, setCurrentTime] = useState(''); // 현재 시간
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열고 닫기
 
+  // 날짜별 습관 상태 저장 {id, name, habitRecord: [{recordDate, done}]}
   const [habitDate, setHabitDate] = useState({
     [today]: study?.habits?.map((habit) => ({
       ...habit,
@@ -26,6 +29,7 @@ export default function TodayHabitPage() {
     })),
   });
 
+  // 현재 시간 업데이트
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -48,6 +52,7 @@ export default function TodayHabitPage() {
     return () => clearInterval(timer);
   }, []);
 
+  // URL에 맞는 스터디가 없는 경우
   if (!study) {
     return (
       <MainLayout>
@@ -58,16 +63,19 @@ export default function TodayHabitPage() {
     );
   }
 
+  // 오늘 습관 배열 (= 오늘의 습관들)
   const habits = habitDate[today] || [];
 
+  // 전체 습관 배열 생성
   const allUniqueHabits = [
     ...new Map(
       Object.values(habitDate)
         .flat()
-        .map((item) => [item.id, item]),
+        .map((habit) => [habit.id, habit]),
     ).values(),
   ];
 
+  // 습관 추가 : 오늘 습관 배열에 새 습관 추가(현재 시간, 체크 유무 저장)
   const addHabit = () => {
     const newHabit = {
       id: Date.now().toString(),
@@ -78,6 +86,7 @@ export default function TodayHabitPage() {
     setHabitDate({ ...habitDate, [today]: [...todayHabits, newHabit] });
   };
 
+  // 습관 삭제 : 날짜별 모든 습관에서 해당 ID 삭제
   const deleteHabit = (id) => {
     const newHabitDate = { ...habitDate };
     for (const date in newHabitDate) {
@@ -86,6 +95,7 @@ export default function TodayHabitPage() {
     setHabitDate(newHabitDate);
   };
 
+  // 습관 완료 토글 : 오늘 습관 클릭 시 완료/미완료 토글, 오늘 기록이 없으면 새로 생성
   const toggleHabit = (id) => {
     const todayHabits = habitDate[today] || [];
     const updatedTodayHabits = todayHabits.map((h) => {
@@ -105,6 +115,7 @@ export default function TodayHabitPage() {
     setHabitDate({ ...habitDate, [today]: updatedTodayHabits });
   };
 
+  // 습관 이름 수정 : 입력값 변경 시 습관 이름 업데이트
   const editHabitName = (id, value) => {
     const newHabitDate = { ...habitDate };
     for (const date in newHabitDate) {
@@ -115,7 +126,13 @@ export default function TodayHabitPage() {
     setHabitDate(newHabitDate);
   };
 
-  const goToFocusPage = () => navigate('/today-focus');
+  // 페이지 이동
+  // 현재 스터디 ID를 브라우저에 저장 -> Focus 페이지에서 사용하기 위함
+  const goToFocusPage = () => {
+    localStorage.setItem('currentStudyId', id);
+    navigate('/today-focus');
+  };
+  // 현재 스터디 ID에 따른 페이지 이동
   const goToHomePage = () => navigate(`/study-detail/${id}`);
 
   return (
@@ -192,6 +209,7 @@ export default function TodayHabitPage() {
         </div>
       </div>
 
+      {/* 습관 관리 모달 */}
       {isModalOpen && (
         <div className={styles.modalWrapper}>
           <Modal isOpen={isModalOpen} title="습관 목록">
