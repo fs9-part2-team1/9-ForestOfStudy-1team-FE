@@ -17,7 +17,6 @@ export default function StudyCard({ data, studyCardClassName }) {
     nickname,
     title,
     description,
-    // points,
     createdAt,
     reactions = [],
     background,
@@ -37,11 +36,12 @@ export default function StudyCard({ data, studyCardClassName }) {
   // 스터디 카드 클릭 시 currentStudyId 업데이트
   const handleClick = () => {
     const stored = JSON.parse(localStorage.getItem('recentStudies')) || [];
-    const filtered = stored.filter((item) => item.id !== data.id);
-    const updated = [data, ...filtered].slice(0, 3);
-    localStorage.setItem('recentStudies', JSON.stringify(updated));
+    const updated = [
+      data,
+      ...stored.filter((item) => item.id !== data.id),
+    ].slice(0, 3);
 
-    // 선택한 스터디 ID 저장
+    localStorage.setItem('recentStudies', JSON.stringify(updated));
     localStorage.setItem('currentStudyId', data.id);
 
     navigate(`/study-detail/${data.id}`);
