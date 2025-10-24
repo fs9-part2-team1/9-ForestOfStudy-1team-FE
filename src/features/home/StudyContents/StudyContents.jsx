@@ -33,7 +33,7 @@ export default function StudyContents({ data }) {
   };
 
   const computeList = () => {
-    const copyList = JSON.parse(JSON.stringify(data));
+    const copyList = [...data];
 
     copyList.sort((a, b) => {
       if (orderBy === 'oldest') {
@@ -55,14 +55,19 @@ export default function StudyContents({ data }) {
     );
   };
 
+  // 처음 6개만 화면 표시, 더보기 눌렀을 때 6개씩 추가
   const updateStudyList = () => {
+    if (!data || data.length === 0) {
+      setStudyList([]);
+      return;
+    }
     const all = computeList();
     setStudyList(all.slice(0, visibleCount));
   };
 
   useEffect(() => {
     updateStudyList();
-  }, [orderBy, searchTerm, visibleCount]);
+  }, [data, orderBy, searchTerm, visibleCount]);
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + ITEMS_LIMIT);
