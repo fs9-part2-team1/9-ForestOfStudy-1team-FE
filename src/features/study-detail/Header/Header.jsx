@@ -8,7 +8,7 @@ import icon_smile from '@/assets/icons/common/ic_smile.png';
 import styles from './Header.module.css';
 
 export default function Header({ data, onDelete }) {
-  const { reactions: initialReactions, nickname, title, password } = data;
+  const { id, reactions: initialReactions, nickname, title, password } = data;
 
   const [showAll, setShowAll] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -26,7 +26,8 @@ export default function Header({ data, onDelete }) {
 
   const handleShare = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      const url = `${window.location.origin}/study-detail/${id}`;
+      await navigator.clipboard.writeText(url);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
     } catch (err) {
@@ -106,18 +107,16 @@ export default function Header({ data, onDelete }) {
         </button>
 
         <p className={styles.line}>|</p>
-
         <EditStudyModal
           buttonText="수정하기"
           nickname={nickname}
           title={title}
           password={password}
           btnClassName={styles.headerEditBtn}
-          redirectTo="/make-study"
+          redirectTo={`/make-study/${id}`}
         />
 
         <p className={styles.line}>|</p>
-
         <EditStudyModal
           buttonText="스터디 삭제하기"
           nickname={nickname}

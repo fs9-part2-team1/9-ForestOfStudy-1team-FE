@@ -30,10 +30,10 @@ export default function EditStudyBtn({
   const handleConfirm = () => {
     if (inputPw === password) {
       if (onDelete) {
-        onDelete(); // 삭제 모달: 부모 삭제 콜백 실행
+        onDelete();
         navigate('/');
       } else if (redirectTo) {
-        navigate(redirectTo); // 수정 모달: 페이지 이동
+        navigate(redirectTo);
       }
       setIsOpen(false);
     } else {

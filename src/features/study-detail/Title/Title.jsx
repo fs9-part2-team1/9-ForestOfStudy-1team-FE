@@ -5,11 +5,6 @@ import styles from './Title.module.css';
 export default function Title({ data }) {
   const { nickname, title, password, id } = data;
 
-  // 로컬스토리지에 스터디 ID 저장
-  const saveCurrentStudyId = (studyId) => {
-    localStorage.setItem('currentStudyId', studyId);
-  };
-
   return (
     <div className={styles.Title}>
       <h1 className={styles.studyName}>
@@ -52,8 +47,7 @@ export default function Title({ data }) {
           title={title}
           password={password}
           btnClassName={styles.goToPageBtn}
-          redirectTo="/today-focus"
-          onClick={() => saveCurrentStudyId(id)} // 클릭 시 ID 저장
+          redirectTo={`/today-focus/${id}`}
         />
       </div>
     </div>

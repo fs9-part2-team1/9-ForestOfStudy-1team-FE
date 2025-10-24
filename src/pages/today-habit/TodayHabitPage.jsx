@@ -1,35 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { Container } from '@/components';
 import styles from './TodayHabitPage.module.css';
 import MainLayout from '@/layouts/MainLayout';
 import Modal from '@/components/Modal/Modal';
-import { mockData } from '@/data/mock-data';
 import trashIcon from '@/assets/icons/common/ic_trash.png';
 import arrowRightIcon from '@/assets/icons/common/ic_arrow_right.png';
-import { Container } from '@/components';
 
 export default function TodayHabitPage() {
-  // URL에서 ID 가져오고 스터디 선택
-  const { id } = useParams();
+  const { id } = useParams(); // studyId
   const navigate = useNavigate();
-  const study = mockData.find((d) => d.id === id);
-
-  // 오늘 날짜 정의
   const today = new Date().toISOString().split('T')[0];
 
-  // 상태 정의
-  const [currentTime, setCurrentTime] = useState(''); // 현재 시간
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열고 닫기
+  const [currentTime, setCurrentTime] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [study, setStudy] = useState(null);
+  const [habitDate, setHabitDate] = useState({});
 
-  // 날짜별 습관 상태 저장 {id, name, habitRecord: [{recordDate, done}]}
-  const [habitDate, setHabitDate] = useState({
-    [today]: study?.habits?.map((habit) => ({
-      ...habit,
-      habitRecord: habit.habitRecord || [],
-    })),
-  });
-
-  // 현재 시간 업데이트
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -52,7 +40,32 @@ export default function TodayHabitPage() {
     return () => clearInterval(timer);
   }, []);
 
-  // URL에 맞는 스터디가 없는 경우
+  // 스터디 정보 및 습관 목록 가져오기
+  useEffect(() => {
+    const fetchStudyAndHabits = async () => {
+      try {
+        // 스터디 기본 정보
+        const studyRes = await axios.get(`/api/study/${id}`);
+        const studyData = studyRes.data;
+        setStudy(studyData);
+
+        // 습관 목록
+        const habitRes = await axios.get(`/api/study/${id}/habit`);
+        const habits = habitRes.data.map((habit) => ({
+          ...habit,
+          habitRecord: habit.habitRecord || [],
+        }));
+
+        setHabitDate({ [today]: habits });
+      } catch (err) {
+        console.error('스터디 또는 습관 데이터를 불러오지 못했습니다:', err);
+        setStudy(null);
+      }
+    };
+
+    fetchStudyAndHabits();
+  }, [id, today]);
+
   if (!study) {
     return (
       <MainLayout>
@@ -63,10 +76,8 @@ export default function TodayHabitPage() {
     );
   }
 
-  // 오늘 습관 배열 (= 오늘의 습관들)
   const habits = habitDate[today] || [];
 
-  // 전체 습관 배열 생성
   const allUniqueHabits = [
     ...new Map(
       Object.values(habitDate)
@@ -75,27 +86,64 @@ export default function TodayHabitPage() {
     ).values(),
   ];
 
-  // 습관 추가 : 오늘 습관 배열에 새 습관 추가(현재 시간, 체크 유무 저장)
-  const addHabit = () => {
-    const newHabit = {
-      id: Date.now().toString(),
-      name: '새로운 습관',
-      habitRecord: [{ recordDate: today + 'T00:00:00.000Z', done: false }],
-    };
-    const todayHabits = habitDate[today] || [];
-    setHabitDate({ ...habitDate, [today]: [...todayHabits, newHabit] });
-  };
+  // 습관 추가
+  const addHabit = async () => {
+    try {
+      const res = await axios.post(`/api/study/${id}/habit`, {
+        name: '새로운 습관',
+      });
 
-  // 습관 삭제 : 날짜별 모든 습관에서 해당 ID 삭제
-  const deleteHabit = (id) => {
-    const newHabitDate = { ...habitDate };
-    for (const date in newHabitDate) {
-      newHabitDate[date] = newHabitDate[date].filter((h) => h.id !== id);
+      const newHabit = {
+        ...res.data.habit,
+        habitRecord: [],
+      };
+
+      setHabitDate((prev) => ({
+        ...prev,
+        [today]: [...(prev[today] || []), newHabit],
+      }));
+    } catch (err) {
+      console.error('습관 추가 실패:', err);
     }
-    setHabitDate(newHabitDate);
   };
 
-  // 습관 완료 토글 : 오늘 습관 클릭 시 완료/미완료 토글, 오늘 기록이 없으면 새로 생성
+  // 습관 수정
+  const editHabitName = async (habitId, value) => {
+    try {
+      await axios.patch(`/api/habit/${habitId}`, { name: value });
+
+      setHabitDate((prev) => {
+        const updated = {};
+        for (const date in prev) {
+          updated[date] = prev[date].map((h) =>
+            h.id === habitId ? { ...h, name: value } : h,
+          );
+        }
+        return updated;
+      });
+    } catch (err) {
+      console.error('습관 수정 실패:', err);
+    }
+  };
+
+  // 습관 삭제
+  const deleteHabit = async (habitId) => {
+    try {
+      await axios.delete(`/api/habit/${habitId}`);
+
+      setHabitDate((prev) => {
+        const updated = {};
+        for (const date in prev) {
+          updated[date] = prev[date].filter((h) => h.id !== habitId);
+        }
+        return updated;
+      });
+    } catch (err) {
+      console.error('습관 삭제 실패:', err);
+    }
+  };
+
+  // 완료 토글
   const toggleHabit = (id) => {
     const todayHabits = habitDate[today] || [];
     const updatedTodayHabits = todayHabits.map((h) => {
@@ -115,24 +163,7 @@ export default function TodayHabitPage() {
     setHabitDate({ ...habitDate, [today]: updatedTodayHabits });
   };
 
-  // 습관 이름 수정 : 입력값 변경 시 습관 이름 업데이트
-  const editHabitName = (id, value) => {
-    const newHabitDate = { ...habitDate };
-    for (const date in newHabitDate) {
-      newHabitDate[date] = newHabitDate[date].map((h) =>
-        h.id === id ? { ...h, name: value } : h,
-      );
-    }
-    setHabitDate(newHabitDate);
-  };
-
-  // 페이지 이동
-  // 현재 스터디 ID를 브라우저에 저장 -> Focus 페이지에서 사용하기 위함
-  const goToFocusPage = () => {
-    localStorage.setItem('currentStudyId', id);
-    navigate('/today-focus');
-  };
-  // 현재 스터디 ID에 따른 페이지 이동
+  const goToFocusPage = () => navigate(`/today-focus/${id}`);
   const goToHomePage = () => navigate(`/study-detail/${id}`);
 
   return (

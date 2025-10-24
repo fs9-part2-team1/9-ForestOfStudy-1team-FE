@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './TodayFocusPage.module.css';
 import MainLayout from '@/layouts/MainLayout';
 import playIcon from '@/assets/icons/stopwatch/ic_play.png';
@@ -8,61 +8,30 @@ import restartIcon from '@/assets/icons/stopwatch/ic_restart.png';
 import stopIcon from '@/assets/icons/stopwatch/ic_stop.png';
 import clockIcon from '@/assets/icons/stopwatch/ic_clock.png';
 import leaf from '@/assets/icons/common/ic_leaf.png';
-import { CustomToast } from '@/components';
+import { Container, CustomToast } from '@/components';
 import arrowRightIcon from '@/assets/icons/common/ic_arrow_right.png';
-import { mockData } from '@/data/mock-data';
+import { studyAPI } from '@/api/studyAPI';
 
 export default function TodayFocusPage() {
-  // 현재 스터디 선택 : 로컬 스토리지에 저장된 스터디 ID 가져오기
-  const storedId = localStorage.getItem('currentStudyId');
-  const studyId = storedId;
-
-  // 해당 스터디 Id 데이터 찾기(항상 최신 ID 기준) -> 포인트 반영을 위함
-  const study = mockData.find((s) => s.id === studyId);
-
-  // 포인트 관리 : 각 스터디별 포인트를 로컬 스토리지에서 불러옴, 없으면 기본 포인트 사용
-  const getStoredPoints = () => {
-    const stored = JSON.parse(localStorage.getItem('studyPoints') || '{}');
-    return stored[studyId] ?? study.points;
-  };
-
-  // 포인트 추가 함수
-  const addPoints = useCallback(
-    (value) => {
-      const stored = JSON.parse(localStorage.getItem('studyPoints') || '{}');
-      const prev = stored[studyId] ?? study.points;
-      stored[studyId] = prev + value;
-      localStorage.setItem('studyPoints', JSON.stringify(stored));
-      setPoints(stored[studyId]);
-    },
-    [studyId, study.points], // studyId에 의존
-  );
-
-  // 페이지 이동
+  const { id } = useParams();
   const navigate = useNavigate();
-  // 로컬 스토리지에 저장된 스터디 ID를 사용해서 이동
-  const goToHabit = () => {
-    const studyId = localStorage.getItem('currentStudyId');
-    navigate(`/today-habit/${studyId}`);
-  };
-  const goToHome = () => {
-    const studyId = localStorage.getItem('currentStudyId');
-    navigate(`/study-detail/${studyId}`);
-  };
 
   // 상태 관리
+  const [study, setStudy] = useState(null);
+  const [points, setPoints] = useState(0); // 현재 스터디의 획득 포인트
+  const [rewardGiven, setRewardGiven] = useState(false); // 카운트 완료 포인트 추가
+
   const [customMinutes, setCustomMinutes] = useState(25);
   const [timeLeft, setTimeLeft] = useState(customMinutes * 60);
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isOvertime, setIsOvertime] = useState(false);
   const [started, setStarted] = useState(false);
-  const [editing, setEditing] = useState(false); // ← 수정 모드 상태
+  const [editing, setEditing] = useState(false); // 수정 모드 상태
   const [inputValue, setInputValue] = useState(customMinutes.toString());
-  const [points, setPoints] = useState(getStoredPoints());
-  const [rewardGiven, setRewardGiven] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // 토스트 상태
+  // 토스트
   const [toast, setToast] = useState({
     show: false,
     message: '',
@@ -73,6 +42,40 @@ export default function TodayFocusPage() {
     setToast({ show: true, message, type });
     setTimeout(() => setToast({ show: false, message: '', type }), 2000);
   };
+
+  // 서버에서 스터디 데이터 받아오기
+  useEffect(() => {
+    const fetchStudy = async () => {
+      try {
+        const data = await studyAPI.getStudyById(id);
+        setStudy(data);
+        setPoints(data.points ?? 0);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (id) fetchStudy();
+  }, [id]);
+
+  // 스터디에 포인트 추가
+  const addPoints = useCallback(
+    async (value) => {
+      if (!study) return;
+      setPoints((prev) => prev + value);
+      try {
+        const updated = await studyAPI.updateStudy(id, {
+          points: points + value,
+        });
+        setStudy((prev) => ({ ...prev, points: updated.points }));
+      } catch (err) {
+        console.error(err);
+        setPoints((prev) => prev - value);
+      }
+    },
+    [id, points, study],
+  );
 
   // 타이머 동작
   useEffect(() => {
@@ -157,7 +160,6 @@ export default function TodayFocusPage() {
   const handleInputSubmit = () => {
     const newMinutes = Number(inputValue);
     if (isNaN(newMinutes) || newMinutes <= 0) {
-      showToast('⏱️ 유효한 숫자를 입력하세요', 'warning');
       setEditing(false);
       return;
     }
@@ -170,11 +172,24 @@ export default function TodayFocusPage() {
     setStarted(false);
   };
 
+  // 페이지 이동
+  const goToHabit = () => navigate(`/today-habit/${id}`);
+  const goToHome = () => navigate(`/study-detail/${id}`);
+
+  if (loading) {
+    return (
+      <MainLayout disabled>
+        <Container>
+          <p>스터디 데이터를 불러오는 중...</p>
+        </Container>
+      </MainLayout>
+    );
+  }
+
   return (
     <MainLayout disabled>
       <div className={styles.page}>
         <div className={styles.container}>
-          {/* HEADER */}
           <div className={styles.header}>
             <div className={styles.headerTop}>
               <h1 className={styles.headerTitle}>
@@ -204,12 +219,11 @@ export default function TodayFocusPage() {
               <h2 className={styles.title}>현재까지 획득한 포인트</h2>
               <div className={styles.pointBox}>
                 <img className={styles.leaf} src={leaf} alt="획득 포인트" />
-                {points}P 획득
+                {points ?? study?.points ?? 0}P 획득
               </div>
             </div>
           </div>
 
-          {/* 타이머 */}
           <div className={styles.timerBox}>
             <h2 className={styles.focusTitle}>오늘의 집중</h2>
 
@@ -220,7 +234,6 @@ export default function TodayFocusPage() {
               </div>
             )}
 
-            {/*타이머 표시*/}
             <div
               className={`${styles.time} ${started ? styles.active : ''} ${
                 isOvertime ? styles.overtime : ''
@@ -241,7 +254,6 @@ export default function TodayFocusPage() {
               )}
             </div>
 
-            {/* 버튼들 */}
             <div className={styles.buttonContainer}>
               {!started && (
                 <button onClick={handleStart} className={styles.startBtn}>
@@ -250,7 +262,6 @@ export default function TodayFocusPage() {
                 </button>
               )}
 
-              {/* 작동 중 */}
               {isRunning && !isOvertime && (
                 <>
                   <button onClick={handleStop} className={styles.pauseIconBtn}>
@@ -272,7 +283,6 @@ export default function TodayFocusPage() {
                 </>
               )}
 
-              {/* 일시정지 */}
               {isPaused && !isRunning && !isOvertime && (
                 <>
                   <button onClick={handleStop} className={styles.pauseIconBtn}>
@@ -291,7 +301,6 @@ export default function TodayFocusPage() {
                 </>
               )}
 
-              {/* 초과 상태 */}
               {isOvertime && (
                 <div className={styles.overtimeButtons}>
                   <button onClick={handleOverStop} className={styles.stopBtn}>
@@ -310,7 +319,6 @@ export default function TodayFocusPage() {
           </div>
         </div>
 
-        {/* 토스트 */}
         <CustomToast
           show={toast.show}
           message={toast.message}
