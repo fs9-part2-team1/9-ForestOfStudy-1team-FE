@@ -26,8 +26,8 @@ export default function StudyDetailPage() {
         const study = await studyAPI.getStudyById(id);
         setData(study);
       } catch (err) {
-        console.error(err);
-        navigate('/'); // 스터디 없으면 홈으로
+        console.error('스터디 불러오기 에러', err);
+        navigate('/');
       } finally {
         setLoading(false);
       }

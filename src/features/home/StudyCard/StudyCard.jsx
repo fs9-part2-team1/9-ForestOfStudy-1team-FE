@@ -20,17 +20,12 @@ export default function StudyCard({ data, studyCardClassName }) {
     createdAt,
     reactions = [],
     background,
-    id,
+    points,
   } = data;
-
-  // 로컬스토리지에서 최신 포인트 가져오기
-  const storedPoints = JSON.parse(localStorage.getItem('studyPoints') || '{}');
-  const pointsToShow = storedPoints[id] ?? data.points;
 
   const MAX_VISIBLE = 3;
   const visibleEmojis = reactions?.slice(0, MAX_VISIBLE);
 
-  // 로컬스토리지에 최근 조회 기록 업데이트
   const navigate = useNavigate();
 
   // 스터디 카드 클릭 시 currentStudyId 업데이트
@@ -47,7 +42,6 @@ export default function StudyCard({ data, studyCardClassName }) {
     navigate(`/study-detail/${data.id}`);
   };
 
-  // BACKGROUND에서 색상 또는 이미지 가져오기
   const backgroundValue = BACKGROUND[background];
   const isImage = backgroundValue && !backgroundValue.startsWith('#');
 
@@ -74,7 +68,7 @@ export default function StudyCard({ data, studyCardClassName }) {
           <div className={styles.getPoint}>
             <div className={styles.pointBox}>
               <img className={styles.leaf} src={leaf} alt="획득 포인트" />
-              {pointsToShow}P 획득
+              {points}P 획득
             </div>
           </div>
         </section>
