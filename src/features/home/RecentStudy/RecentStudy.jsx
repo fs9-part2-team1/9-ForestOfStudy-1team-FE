@@ -1,15 +1,37 @@
 import { useEffect, useState } from 'react';
 import { Container } from '@/components';
 import { StudyCard } from '..';
+import { studyAPI } from '@/api/studyAPI';
 import styles from './RecentStudy.module.css';
 
 export default function RecentStudy({ studyCardClassName }) {
   const [recentStudies, setRecentStudies] = useState([]);
 
-  // 로컬스토리지에서 최근 조회 스터디 가져오기
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('recentStudies')) || [];
-    setRecentStudies(stored);
+    const storedIds = JSON.parse(localStorage.getItem('recentStudies')) || [];
+
+    const fetchRecentStudies = async () => {
+      try {
+        const results = await Promise.allSettled(
+          storedIds.map((study) => studyAPI.getStudyById(study.id)),
+        );
+
+        const fulfilledStudies = results
+          .filter((r) => r.status === 'fulfilled')
+          .map((r) => r.value);
+
+        setRecentStudies(fulfilledStudies);
+
+        const validIds = fulfilledStudies.map((s) => ({ id: s.id }));
+        localStorage.setItem('recentStudies', JSON.stringify(validIds));
+      } catch (error) {
+        console.error('최근 조회한 스터디 불러오기 실패', error);
+      }
+    };
+
+    if (storedIds.length > 0) {
+      fetchRecentStudies();
+    }
   }, []);
 
   return (
