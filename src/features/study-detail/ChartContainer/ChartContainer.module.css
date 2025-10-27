@@ -1,6 +1,8 @@
 .ChartContainer {
   display: flex;
   max-width: 1120px;
+  min-height: 511px;
+  height: 100%;
   padding: 1.5rem;
   flex-direction: column;
   align-items: flex-start;
@@ -19,10 +21,11 @@
 }
 
 .habitChart {
-  display: flex-start;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 
 .noDataScript {
@@ -30,17 +33,29 @@
   text-align: center;
   font-weight: 500;
   line-height: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
 }
 
 @media (min-width: 744px) and (max-width: 1919px) {
   .noDataScript {
     font-size: 1.25rem;
     line-height: 1.5rem;
+    height: 400px;
   }
 }
 
 @media (max-width: 743px) {
   .title {
     font-size: 1.125rem;
+  }
+
+  .noDataScript {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    height: 500px;
   }
 }

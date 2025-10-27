@@ -10,12 +10,11 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 30px;
-  height: 382px;
 }
 
 .studyCardSection {
   display: flex;
-  height: 15.1875rem;
+  /* height: 15.1875rem; */
   align-items: flex-start;
   gap: 1.5rem;
   flex-shrink: 0;
@@ -41,8 +40,7 @@
 @media (max-width: 743px) {
   .container {
     padding: 1.5rem;
-    /* margin: 1.25rem 1rem; */
-    min-height: auto;
+    min-height: 247px;
     min-width: 21.5rem;
   }
   .title {
