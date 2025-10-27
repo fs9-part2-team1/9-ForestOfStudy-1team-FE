@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { EmojiCard } from '@/components';
 import { EditStudyModal } from '..';
 import { CustomToast } from '@/components/CustomToast/CustomToast';
+import { reactionAPI } from '@/api/reactionAPI';
 import plus_white from '@/assets/icons/common/ic_plus_white.png';
 import icon_smile from '@/assets/icons/common/ic_smile.png';
 import styles from './Header.module.css';
@@ -13,7 +14,9 @@ export default function Header({ data, onDelete }) {
   const [showAll, setShowAll] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [isOpenPicker, setIsOpenPicker] = useState(false);
-  const [reactions, setReactions] = useState(initialReactions);
+  const [reactions, setReactions] = useState(
+    Array.isArray(initialReactions) ? initialReactions : [],
+  );
 
   const MAX_VISIBLE = 3;
   const visibleEmojis = reactions.slice(0, MAX_VISIBLE);
@@ -39,7 +42,8 @@ export default function Header({ data, onDelete }) {
     setIsOpenPicker((prev) => !prev);
   };
 
-  const onEmojiPick = (emojiData) => {
+  // 이모지 추가
+  const onEmojiPick = async (emojiData) => {
     const emoji = emojiData.emoji;
 
     const exists = reactions.find((r) => r.emoji === emoji);
@@ -52,6 +56,30 @@ export default function Header({ data, onDelete }) {
     }
 
     setIsOpenPicker(false);
+
+    try {
+      await reactionAPI.addReaction(id, emoji);
+    } catch (err) {
+      console.error('이모지 추가 실패:', err);
+    }
+  };
+
+  // 이모지 삭제
+  const handleDeleteEmoji = async (emoji) => {
+    const exists = reactions.find((r) => r.emoji === emoji);
+    if (!exists) return;
+
+    let updated = reactions
+      .map((r) => (r.emoji === emoji ? { ...r, count: r.count - 1 } : r))
+      .filter((r) => r.count > 0);
+
+    setReactions(updated);
+
+    try {
+      await reactionAPI.deleteReaction(id, emoji);
+    } catch (err) {
+      console.error('이모지 삭제 실패:', err);
+    }
   };
 
   return (
@@ -59,7 +87,9 @@ export default function Header({ data, onDelete }) {
       <div className={styles.emojiGroup}>
         <div className={styles.emoji}>
           {visibleEmojis.map((reaction, i) => (
-            <EmojiCard key={i} emoji={reaction.emoji} count={reaction.count} />
+            <div key={i} onClick={() => handleDeleteEmoji(reaction.emoji)}>
+              <EmojiCard emoji={reaction.emoji} count={reaction.count} />
+            </div>
           ))}
 
           {hiddenCount > 0 && (

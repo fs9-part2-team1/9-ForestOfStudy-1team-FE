@@ -5,6 +5,7 @@
   border-radius: 50px;
   background: rgba(0, 0, 0, 0.5);
   height: 1.9375rem;
+  cursor: pointer;
 }
 
 .emojiBox {
