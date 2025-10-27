@@ -13,7 +13,7 @@ export default function CustomSelect({
   const handleSelect = (val) => {
     onChange(val);
     setOpen(false);
-    if (resetCount) resetCount(); // StudyContents에서 setVisibleCount 초기화용
+    if (resetCount) resetCount();
   };
 
   return (

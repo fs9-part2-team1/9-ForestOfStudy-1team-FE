@@ -44,12 +44,10 @@ export default function TodayHabitPage() {
   useEffect(() => {
     const fetchStudyAndHabits = async () => {
       try {
-        // 스터디 기본 정보
         const studyRes = await axios.get(`/api/study/${id}`);
         const studyData = studyRes.data;
         setStudy(studyData);
 
-        // 습관 목록
         const habitRes = await axios.get(`/api/study/${id}/habit`);
         const habits = habitRes.data.map((habit) => ({
           ...habit,
@@ -240,7 +238,6 @@ export default function TodayHabitPage() {
         </div>
       </div>
 
-      {/* 습관 관리 모달 */}
       {isModalOpen && (
         <div className={styles.modalWrapper}>
           <Modal isOpen={isModalOpen} title="습관 목록">
