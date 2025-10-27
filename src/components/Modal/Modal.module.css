@@ -36,7 +36,6 @@
   font-family: 'Pretendard', sans-serif;
 }
 
-/* max-width: 743일 때 보이는 버튼 */
 .editCloseBtn {
   background-color: #fff;
   color: var(--text-green);
@@ -56,7 +55,6 @@
   display: none;
 }
 
-/*  Mobile (최대 767px)만 반응형 적용 */
 @media (max-width: 767px) {
   .modal {
     width: 344px;
