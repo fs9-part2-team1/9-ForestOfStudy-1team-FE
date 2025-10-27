@@ -59,7 +59,7 @@
   .btnGroup {
     gap: 0.5rem;
   }
-  .goBtn {
+  .goToPageBtn {
     width: 120px;
     height: 40px;
     flex-shrink: 0;
