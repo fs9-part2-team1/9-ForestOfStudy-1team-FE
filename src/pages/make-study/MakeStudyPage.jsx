@@ -1,4 +1,4 @@
-import MainLayout from '@/Layouts/MainLayout';
+import MainLayout from '@/layouts/MainLayout';
 import styles from './MakeStudyPage.module.css';
 import bgSelectIcon from '@/assets/icons/common/ic_bg_selected.png';
 import visibilityOffIcon from '@/assets/icons/password/btn_visibility_off.png';

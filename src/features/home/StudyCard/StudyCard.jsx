@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { EmojiCard } from '@/components';
-import { BACKGROUND } from './BackgroundImg';
+import { BACKGROUND } from './backgroundImg';
 import leaf from '@/assets/icons/common/ic_leaf.png';
 import styles from './StudyCard.module.css';
 
